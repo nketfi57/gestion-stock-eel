@@ -146,3 +146,4 @@ function exportToCSV() {
 }
 
 renderTable();
+// Dernier essai - 28/01/2026
