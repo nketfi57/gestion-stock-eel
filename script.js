@@ -1,10 +1,8 @@
-// Liste des 50 matériaux avec image (base64)
 let materials = [];
 for (let i = 1; i <= 50; i++) {
-    materials.push({ name: `Matériaux ${i}`, quantity: 0, image: '' });
+    materials.push({ name: `Matériaux ${i}`, quantity: 0, image: '' }); // Ajout champ image
 }
 
-// Charger depuis LocalStorage
 if (localStorage.getItem('materials')) {
     materials = JSON.parse(localStorage.getItem('materials'));
 }
@@ -21,16 +19,16 @@ function renderTable() {
             </td>
             <td>
                 <span class="quantity-span">${mat.quantity}</span>
-                <input class="quantity-input" type="number" min="0" value="${mat.quantity}" style="display:none;">
+                <input class="quantity-input" type="number" value="${mat.quantity}" style="display:none;">
             </td>
             <td>
-                ${mat.image ? `<img src="${mat.image}" class="material-image" alt="${mat.name}">` : 'Aucune image'}
+                ${mat.image ? `<img src="${mat.image}" class="material-image" alt="Image de ${mat.name}">` : 'Aucune image'}
             </td>
             <td>
-                <button class="action-btn add-btn" onclick="updateQuantity(${index}, 1)">+1</button>
-                <button class="action-btn remove-btn" onclick="updateQuantity(${index}, -1)">-1</button>
-                <button class="action-btn edit-btn" onclick="editName(${index})">Éditer nom</button>
-                <button class="action-btn image-btn" onclick="addImage(${index})">Ajouter image</button>
+                <button class="add-btn" onclick="updateQuantity(${index}, 1)">+1</button>
+                <button class="remove-btn" onclick="updateQuantity(${index}, -1)">-1</button>
+                <button class="edit-btn" onclick="editName(${index})">Éditer nom</button>
+                <button class="image-btn" onclick="addImage(${index})">Ajouter image</button>
             </td>
         `;
         tbody.appendChild(row);
@@ -39,44 +37,37 @@ function renderTable() {
 
 function updateQuantity(index, change) {
     materials[index].quantity = Math.max(0, materials[index].quantity + change);
-    save();
+    saveToLocalStorage();
     renderTable();
 }
 
 function editName(index) {
     const row = document.getElementById('materialsBody').rows[index];
-    const span = row.cells[0].querySelector('.name-span');
-    const input = row.cells[0].querySelector('.name-input');
-    span.style.display = 'none';
-    input.style.display = 'inline-block';
-    input.focus();
-    input.select();
+    const nameSpan = row.cells[0].querySelector('.name-span');
+    const nameInput = row.cells[0].querySelector('.name-input');
+    nameSpan.style.display = 'none';
+    nameInput.style.display = 'inline';
+    nameInput.focus();
 
-    const saveName = () => {
-        materials[index].name = input.value.trim() || `Matériaux ${index+1}`;
-        save();
-        renderTable();
-    };
-
-    input.onblur = saveName;
-    input.onkeydown = e => { if (e.key === 'Enter') saveName(); };
+    nameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            materials[index].name = nameInput.value;
+            saveToLocalStorage();
+            renderTable();
+        }
+    });
 }
 
 function addImage(index) {
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = 'image/jpeg,image/png,image/gif';
-    input.onchange = e => {
+    input.accept = 'image/*';
+    input.onchange = (e) => {
         const file = e.target.files[0];
-        if (!file) return;
-        if (file.size > 2 * 1024 * 1024) {
-            alert("Image trop lourde (max 2 Mo)");
-            return;
-        }
         const reader = new FileReader();
-        reader.onload = event => {
+        reader.onload = (event) => {
             materials[index].image = event.target.result;
-            save();
+            saveToLocalStorage();
             renderTable();
         };
         reader.readAsDataURL(file);
@@ -84,7 +75,7 @@ function addImage(index) {
     input.click();
 }
 
-function save() {
+function saveToLocalStorage() {
     localStorage.setItem('materials', JSON.stringify(materials));
 }
 
@@ -98,36 +89,16 @@ function filterMaterials() {
 }
 
 function exportToCSV() {
-    let csv = 'Matériaux,Quantité,Image présente\n';
+    let csv = 'Matériaux,Quantité,Image\n';
     materials.forEach(mat => {
-        csv += `"${mat.name.replace(/"/g,'""')}",${mat.quantity},${mat.image ? 'Oui' : 'Non'}\n`;
+        csv += `${mat.name},${mat.quantity},${mat.image ? 'Oui' : 'Non'}\n`;
     });
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = 'stock_eel.csv';
     a.click();
-    URL.revokeObjectURL(url);
 }
-
-// Dark mode toggle
-const themeToggle = document.getElementById('themeToggle');
-
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark');
-    themeToggle.textContent = 'Mode clair ☀️';
-}
-
-themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    if (document.body.classList.contains('dark')) {
-        themeToggle.textContent = 'Mode clair ☀️';
-        localStorage.setItem('theme', 'dark');
-    } else {
-        themeToggle.textContent = 'Mode sombre 🌙';
-        localStorage.setItem('theme', 'light');
-    }
-});
 
 renderTable();
