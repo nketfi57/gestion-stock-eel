@@ -1,7 +1,7 @@
-// Liste des 50 matériaux – noms générés automatiquement au singulier
+// Liste des 50 matériaux – noms au pluriel comme demandé
 let materials = [];
 for (let i = 1; i <= 50; i++) {
-    materials.push({ name: `Matériau n°${i}`, quantity: 0 });
+    materials.push({ name: `Matériaux ${i}`, quantity: 0 });
 }
 
 // Charger les données sauvegardées depuis le navigateur (LocalStorage)
@@ -44,7 +44,7 @@ function filterMaterials() {
 function exportToCSV() {
     let csv = 'Matériaux,Quantité\n';
     materials.forEach(mat => {
-        // Protège les guillemets dans les noms (si un nom contient des ")
+        // Protège les guillemets si un nom en contient
         csv += `"${mat.name.replace(/"/g, '""')}",${mat.quantity}\n`;
     });
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -53,7 +53,7 @@ function exportToCSV() {
     a.href = url;
     a.download = 'stock_eel.csv';
     a.click();
-    URL.revokeObjectURL(url); // Nettoie la mémoire
+    URL.revokeObjectURL(url); // Nettoie
 }
 
 renderTable();
