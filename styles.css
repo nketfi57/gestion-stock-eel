@@ -7,10 +7,10 @@
     --card-bg:          #ffffff;
     --text:             #2c3e50;
     --text-muted:       #7f8c8d;
-    --primary:          #006d5b;       /* vert teal EEL principal */
+    --primary:          #006d5b;
     --primary-dark:     #004d40;
-    --accent:           #2ecc71;       /* vert vif pour + ajouter */
-    --danger:           #e74c3c;       /* rouge enlever */
+    --accent:           #2ecc71;
+    --danger:           #e74c3c;
     --border:           #dee2e6;
     --shadow:           0 4px 12px rgba(0,0,0,0.08);
     --shadow-dark:      0 4px 20px rgba(0,0,0,0.35);
@@ -29,7 +29,7 @@ body.dark {
     --shadow:           0 4px 20px rgba(0,0,0,0.5);
 }
 
-/* Transitions fluides sur tous les changements de thème */
+/* Transitions fluides sur tous les changements */
 body,
 body *,
 header,
@@ -48,9 +48,8 @@ footer {
         opacity      0.4s ease;
 }
 
-/* Base */
 body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-family: 'Segoe UI', system-ui, sans-serif;
     background-color: var(--bg);
     color: var(--text);
     margin: 0;
@@ -58,7 +57,6 @@ body {
     line-height: 1.6;
 }
 
-/* Header */
 header {
     text-align: center;
     background-color: var(--primary);
@@ -67,18 +65,14 @@ header {
     border-radius: 12px;
     box-shadow: var(--shadow);
     margin-bottom: 2rem;
-    position: relative;
-    overflow: hidden;
 }
 
 h1 {
     margin: 0 0 0.5rem;
     font-size: 2.4rem;
     font-weight: 700;
-    letter-spacing: -0.5px;
 }
 
-/* Bouton toggle thème */
 #themeToggle {
     margin-top: 1rem;
     padding: 0.75rem 1.5rem;
@@ -103,11 +97,7 @@ h1 {
     transform: scale(0.94);
 }
 
-/* Main & recherche */
-main {
-    max-width: 1100px;
-    margin: 0 auto;
-}
+main { max-width: 1100px; margin: 0 auto; }
 
 #searchInput {
     width: 100%;
@@ -121,7 +111,6 @@ main {
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
 }
 
-/* Tableau */
 table {
     width: 100%;
     border-collapse: separate;
@@ -150,7 +139,6 @@ td {
 
 tr:hover td {
     background: rgba(var(--primary), 0.07);
-    transition: background-color 0.25s ease;
 }
 
 button {
@@ -163,27 +151,56 @@ button {
     transition: all 0.25s ease;
 }
 
-.add-btn {
-    background: var(--accent);
-    color: white;
+.add-btn      { background: var(--accent); color: white; }
+.add-btn:hover      { background: #27ae60; transform: translateY(-1px); }
+
+.remove-btn   { background: var(--danger); color: white; }
+.remove-btn:hover   { background: #c0392b; transform: translateY(-1px); }
+
+.edit-btn     { background: #ffc107; color: black; }
+.edit-btn:hover     { background: #e0a800; transform: translateY(-1px); }
+
+.image-btn    { background: #17a2b8; color: white; }
+.image-btn:hover    { background: #138496; transform: translateY(-1px); }
+
+.material-image {
+    max-width: 60px;
+    max-height: 60px;
+    border-radius: 6px;
+    object-fit: cover;
+    transition: transform 0.3s;
 }
 
-.add-btn:hover {
-    background: #27ae60;
-    transform: translateY(-1px);
+.material-image:hover {
+    transform: scale(1.15);
 }
 
-.remove-btn {
-    background: var(--danger);
-    color: white;
+.quantity-input, .name-input {
+    width: 90px;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+    background: var(--card-bg);
+    color: var(--text);
 }
 
-.remove-btn:hover {
-    background: #c0392b;
-    transform: translateY(-1px);
+.quantity-input:focus, .name-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary), 0.2);
 }
 
-/* Footer */
+/* Animations */
+tr {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 footer {
     text-align: center;
     margin-top: 4rem;
@@ -193,7 +210,7 @@ footer {
     border-top: 1px solid var(--border);
 }
 
-/* Responsive mobile */
+/* Responsive */
 @media (max-width: 640px) {
     table, thead, tbody, th, td, tr { display: block; }
     thead tr { position: absolute; top: -9999px; left: -9999px; }
@@ -221,5 +238,6 @@ footer {
     }
     td:nth-of-type(1):before { content: "Matériaux"; }
     td:nth-of-type(2):before { content: "Quantité"; }
-    td:nth-of-type(3):before { content: "Actions"; }
+    td:nth-of-type(3):before { content: "Image"; }
+    td:nth-of-type(4):before { content: "Actions"; }
 }
