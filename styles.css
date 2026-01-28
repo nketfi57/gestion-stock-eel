@@ -1,40 +1,225 @@
-/* Ajoute une transition globale pour TOUT ce qui change en dark mode */
+/* ==========================================================================
+   Gestion Stock EEL - Thème Eco-Industriel + Dark Mode fluide
+   ========================================================================== */
+
+:root {
+    --bg:               #f8f9fa;
+    --card-bg:          #ffffff;
+    --text:             #2c3e50;
+    --text-muted:       #7f8c8d;
+    --primary:          #006d5b;       /* vert teal EEL principal */
+    --primary-dark:     #004d40;
+    --accent:           #2ecc71;       /* vert vif pour + ajouter */
+    --danger:           #e74c3c;       /* rouge enlever */
+    --border:           #dee2e6;
+    --shadow:           0 4px 12px rgba(0,0,0,0.08);
+    --shadow-dark:      0 4px 20px rgba(0,0,0,0.35);
+}
+
+body.dark {
+    --bg:               #0f1217;
+    --card-bg:          #1a1f27;
+    --text:             #e0e7ff;
+    --text-muted:       #a0aec0;
+    --primary:          #0a8c7a;
+    --primary-dark:     #08665a;
+    --accent:           #34d058;
+    --danger:           #c0392b;
+    --border:           #2d3748;
+    --shadow:           0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* Transitions fluides sur tous les changements de thème */
 body,
 body *,
 header,
 main,
+input,
 table,
 th,
 td,
 button,
-input,
 footer {
     transition: 
-        background-color 0.5s ease,
-        color 0.5s ease,
-        border-color 0.5s ease,
-        box-shadow 0.5s ease;
+        background-color 0.55s ease,
+        color        0.55s ease,
+        border-color 0.55s ease,
+        box-shadow   0.55s ease,
+        opacity      0.4s ease;
 }
 
-/* Option : transition plus rapide sur le bouton toggle pour qu'il réagisse vite */
-#themeToggle {
-    transition: 
-        background-color 0.3s ease,
-        transform 0.3s ease,
-        color 0.3s ease;
-}
-
-/* Animation sympa au clic sur le bouton (rotation légère + scale) */
-#themeToggle:active {
-    transform: scale(0.95) rotate(5deg);
-}
-
-/* Option avancée : effet "pulse" ou glow au hover */
-#themeToggle:hover {
-    box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);  /* glow vert si tu as --accent */
-}
-
-/* Si tu veux que le changement soit encore plus doux sur tout le body */
+/* Base */
 body {
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);  /* courbe easing très fluide */
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    text-align: center;
+    background-color: var(--primary);
+    color: white;
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+h1 {
+    margin: 0 0 0.5rem;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* Bouton toggle thème */
+#themeToggle {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.18);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 999px;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#themeToggle:hover {
+    background: rgba(255,255,255,0.28);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+#themeToggle:active {
+    transform: scale(0.94);
+}
+
+/* Main & recherche */
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 1.8rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 1rem;
+    background: var(--card-bg);
+    color: var(--text);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Tableau */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+th, td {
+    padding: 1rem 1.2rem;
+    text-align: left;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+}
+
+th {
+    background-color: var(--primary);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-size: 0.9rem;
+}
+
+td {
+    border-radius: 8px;
+}
+
+tr:hover td {
+    background: rgba(var(--primary), 0.07);
+    transition: background-color 0.25s ease;
+}
+
+button {
+    padding: 0.65rem 1.2rem;
+    margin: 0 0.4rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.add-btn {
+    background: var(--accent);
+    color: white;
+}
+
+.add-btn:hover {
+    background: #27ae60;
+    transform: translateY(-1px);
+}
+
+.remove-btn {
+    background: var(--danger);
+    color: white;
+}
+
+.remove-btn:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    border-top: 1px solid var(--border);
+}
+
+/* Responsive mobile */
+@media (max-width: 640px) {
+    table, thead, tbody, th, td, tr { display: block; }
+    thead tr { position: absolute; top: -9999px; left: -9999px; }
+    tr {
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+    }
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+    td:before {
+        position: absolute;
+        left: 1rem;
+        width: 45%;
+        padding-right: 1rem;
+        white-space: nowrap;
+        font-weight: 600;
+        text-align: left;
+        color: var(--text-muted);
+    }
+    td:nth-of-type(1):before { content: "Matériaux"; }
+    td:nth-of-type(2):before { content: "Quantité"; }
+    td:nth-of-type(3):before { content: "Actions"; }
 }
