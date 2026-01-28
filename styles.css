@@ -1,266 +1,40 @@
-/* ==========================================================================
-   Gestion Stock EEL - Thème + Dark Mode + Animations CSS avancées
-   ========================================================================== */
-
-:root {
-    --bg:               #f9fafb;
-    --card-bg:          #ffffff;
-    --text:             #1f2937;
-    --text-muted:       #6b7280;
-    --primary:          #047857;      /* teal-700 */
-    --primary-dark:     #065f46;
-    --accent:           #10b981;      /* emerald-500 */
-    --danger:           #ef4444;
-    --warning:          #f59e0b;
-    --border:           #d1d5db;
-    --shadow-sm:        0 1px 3px rgba(0,0,0,0.1);
-    --shadow:           0 4px 12px rgba(0,0,0,0.12);
-    --shadow-hover:     0 10px 25px rgba(0,0,0,0.18);
-    --glow:             0 0 15px rgba(16, 185, 129, 0.5);
-}
-
-body.dark {
-    --bg:               #0f172a;
-    --card-bg:          #1e293b;
-    --text:             #e2e8f0;
-    --text-muted:       #94a3b8;
-    --primary:          #2dd4bf;
-    --primary-dark:     #14b8a6;
-    --accent:           #34d399;
-    --danger:           #f87171;
-    --warning:          #fbbf24;
-    --border:           #334155;
-    --shadow:           0 4px 20px rgba(0,0,0,0.6);
-    --shadow-hover:     0 10px 30px rgba(0,0,0,0.7);
-    --glow:             0 0 20px rgba(45, 212, 191, 0.4);
-}
-
-/* ────────────────────────────────────────────────
-   Transitions globales ultra-fluides
-   ──────────────────────────────────────────────── */
+/* Ajoute une transition globale pour TOUT ce qui change en dark mode */
 body,
 body *,
 header,
 main,
-input,
 table,
 th,
 td,
 button,
-img,
+input,
 footer {
     transition: 
-        all 0.48s cubic-bezier(0.4, 0, 0.2, 1),
-        background-color 0.55s ease,
-        color 0.55s ease,
-        border-color 0.55s ease,
-        box-shadow 0.55s ease,
-        transform 0.32s ease,
-        filter 0.4s ease;
+        background-color 0.5s ease,
+        color 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease;
 }
 
-/* Base styles */
-body {
-    font-family: system-ui, -apple-system, sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    margin: 0;
-    padding: 1.5rem;
-    min-height: 100vh;
-}
-
-header {
-    text-align: center;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: white;
-    padding: 2.5rem 1.5rem;
-    border-radius: 16px;
-    box-shadow: var(--shadow);
-    margin-bottom: 2.5rem;
-    position: relative;
-    overflow: hidden;
-}
-
-h1 {
-    margin: 0 0 0.75rem;
-    font-size: 2.8rem;
-    font-weight: 800;
-    letter-spacing: -1px;
-}
-
-/* Bouton dark mode - glow + scale + ripple */
+/* Option : transition plus rapide sur le bouton toggle pour qu'il réagisse vite */
 #themeToggle {
-    position: relative;
-    overflow: hidden;
-    margin-top: 1.25rem;
-    padding: 0.85rem 1.8rem;
-    font-size: 1.05rem;
-    font-weight: 600;
-    background: rgba(255,255,255,0.16);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 9999px;
-    cursor: pointer;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: 
+        background-color 0.3s ease,
+        transform 0.3s ease,
+        color 0.3s ease;
 }
 
-#themeToggle:hover {
-    background: rgba(255,255,255,0.26);
-    transform: translateY(-3px) scale(1.04);
-    box-shadow: var(--glow), 0 12px 30px rgba(0,0,0,0.25);
-}
-
+/* Animation sympa au clic sur le bouton (rotation légère + scale) */
 #themeToggle:active {
-    transform: scale(0.92);
+    transform: scale(0.95) rotate(5deg);
 }
 
-#themeToggle::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255,255,255,0.35);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
-    pointer-events: none;
+/* Option avancée : effet "pulse" ou glow au hover */
+#themeToggle:hover {
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);  /* glow vert si tu as --accent */
 }
 
-#themeToggle:active::after {
-    width: 300px;
-    height: 300px;
-    opacity: 0;
-}
-
-/* Tableau + animations lignes */
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 14px;
-    margin-bottom: 2rem;
-}
-
-th, td {
-    padding: 1.1rem 1.3rem;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    text-align: left;
-}
-
-th {
-    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: white;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.92rem;
-}
-
-tr {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    animation: rowAppear 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-    opacity: 0;
-}
-
-@keyframes rowAppear {
-    0%   { opacity: 0; transform: translateY(30px) scale(0.96); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* Délai progressif pour chaque ligne */
-tbody tr:nth-child(1) { animation-delay: 0.05s; }
-tbody tr:nth-child(2) { animation-delay: 0.10s; }
-tbody tr:nth-child(3) { animation-delay: 0.15s; }
-tbody tr:nth-child(4) { animation-delay: 0.20s; }
-/* ... tu peux continuer jusqu'à 50 si tu veux, ou laisser comme ça */
-
-tr:hover td {
-    background: rgba(var(--accent), 0.08);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
-}
-
-.material-image {
-    max-width: 64px;
-    max-height: 64px;
-    border-radius: 10px;
-    object-fit: cover;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.material-image:hover {
-    transform: scale(1.18) rotate(3deg);
-    box-shadow: var(--glow);
-}
-
-/* Inputs édition */
-.quantity-input, .name-input {
-    width: 100%;
-    padding: 0.6rem 0.9rem;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    font-size: 1rem;
-    background: rgba(var(--card-bg), 0.6);
-    color: var(--text);
-    transition: all 0.3s ease;
-}
-
-.quantity-input:focus, .name-input:focus {
-    border-color: var(--accent);
-    background: var(--card-bg);
-    box-shadow: 0 0 0 4px rgba(var(--accent), 0.25);
-    animation: inputPulse 1.2s infinite alternate;
-}
-
-@keyframes inputPulse {
-    from { box-shadow: 0 0 0 0 rgba(var(--accent), 0.4); }
-    to   { box-shadow: 0 0 0 12px rgba(var(--accent), 0); }
-}
-
-/* Boutons généraux */
-button {
-    position: relative;
-    overflow: hidden;
-}
-
-button::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255,255,255,0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.8s ease, height 0.8s ease;
-    pointer-events: none;
-}
-
-button:active::after {
-    width: 400px;
-    height: 400px;
-    opacity: 0;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    margin-top: 5rem;
-    padding: 2rem;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    border-top: 1px solid var(--border);
-}
-
-/* Responsive */
-@media (max-width: 640px) {
-    /* ton code responsive précédent reste valide */
-    /* ... */
+/* Si tu veux que le changement soit encore plus doux sur tout le body */
+body {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);  /* courbe easing très fluide */
 }
