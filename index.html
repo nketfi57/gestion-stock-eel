@@ -9,12 +9,20 @@
 <body>
     <header>
         <h1>Gestion Stock EEL</h1>
+        <p>Gérez vos 50 matériaux avec facilité. Ajoutez ou enlevez des quantités.</p>
+        
+        <!-- Bouton toggle dark mode -->
+        <button id="themeToggle">
+            Mode sombre 🌙
+        </button>
         <p>Gérez vos 50 matériaux avec facilité. Éditez noms, quantités et ajoutez des images.</p>
         <button id="themeToggle">Mode sombre 🌙</button>
     </header>
+   
     
     <main>
         <input type="text" id="searchInput" placeholder="Rechercher un matériau..." onkeyup="filterMaterials()">
+       
         
         <table id="materialsTable">
             <thead>
@@ -29,13 +37,17 @@
                 <!-- Les lignes seront générées par JS -->
             </tbody>
         </table>
+       
         
         <button onclick="exportToCSV()">Exporter en CSV</button>
     </main>
+   
     
     <footer>
+        <p>Site créé par Nassim Ketfi – Droits réservés</p>
         <p>Site créé par Nassim Ketfi-Stagiaire</p>
     </footer>
+   
     
     <script src="script.js"></script>
 </body>
