@@ -1,40 +1,145 @@
-/* Ajoute une transition globale pour TOUT ce qui change en dark mode */
-body,
-body *,
-header,
-main,
-table,
-th,
-td,
-button,
-input,
-footer {
-    transition: 
-        background-color 0.5s ease,
-        color 0.5s ease,
-        border-color 0.5s ease,
-        box-shadow 0.5s ease;
-}
-
-/* Option : transition plus rapide sur le bouton toggle pour qu'il réagisse vite */
-#themeToggle {
-    transition: 
-        background-color 0.3s ease,
-        transform 0.3s ease,
-        color 0.3s ease;
-}
-
-/* Animation sympa au clic sur le bouton (rotation légère + scale) */
-#themeToggle:active {
-    transform: scale(0.95) rotate(5deg);
-}
-
-/* Option avancée : effet "pulse" ou glow au hover */
-#themeToggle:hover {
-    box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);  /* glow vert si tu as --accent */
-}
-
-/* Si tu veux que le changement soit encore plus doux sur tout le body */
 body {
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);  /* courbe easing très fluide */
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+header {
+    text-align: center;
+    background-color: #007bff; /* Bleu pro */
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #28a745; /* Vert pour thème EEL */
+    color: white;
+}
+
+button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+.add-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.remove-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.edit-btn {
+    background-color: #ffc107;
+    color: black;
+}
+
+.image-btn {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.material-image {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 4px;
+    transition: transform 0.3s;
+}
+
+.material-image:hover {
+    transform: scale(1.2);
+}
+
+.quantity-input, .name-input {
+    width: 80px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+tr {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    tr { border: 1px solid #ccc; margin-bottom: 10px; }
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+    td:nth-of-type(1):before { content: "Matériaux"; }
+    td:nth-of-type(2):before { content: "Quantité"; }
+    td:nth-of-type(3):before { content: "Image"; }
+    td:nth-of-type(4):before { content: "Actions"; }
 }
