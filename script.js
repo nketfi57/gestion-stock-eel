@@ -1,14 +1,10 @@
-// Liste des 50 matériaux – change les noms ici pour tes vrais produits !
-let materials = [
-    { name: "Matériau 1", quantity: 0 },
-    { name: "Matériau 2", quantity: 0 },
-    // ... jusqu'à 50
-    // Exemple concret :
-    // { name: "Vis M6x20", quantity: 150 },
-    // { name: "Plaque acier 3mm", quantity: 8 },
-    // etc.
-];
+// Liste des 50 matériaux – noms générés automatiquement au singulier
+let materials = [];
+for (let i = 1; i <= 50; i++) {
+    materials.push({ name: `Matériau n°${i}`, quantity: 0 });
+}
 
+// Charger les données sauvegardées depuis le navigateur (LocalStorage)
 if (localStorage.getItem('materials')) {
     materials = JSON.parse(localStorage.getItem('materials'));
 }
@@ -46,16 +42,18 @@ function filterMaterials() {
 }
 
 function exportToCSV() {
-    let csv = 'Matériau,Quantité\n';
+    let csv = 'Matériaux,Quantité\n';
     materials.forEach(mat => {
-        csv += `"${mat.name}",${mat.quantity}\n`;
+        // Protège les guillemets dans les noms (si un nom contient des ")
+        csv += `"${mat.name.replace(/"/g, '""')}",${mat.quantity}\n`;
     });
-    const blob = new Blob([csv], { type: 'text/csv' });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = 'stock_eel.csv';
     a.click();
+    URL.revokeObjectURL(url); // Nettoie la mémoire
 }
 
 renderTable();
