@@ -1,7 +1,13 @@
-let materials = [];
-for (let i = 1; i <= 50; i++) {
-    materials.push({ name: `Matériau ${i}`, quantity: 0 });
-}
+// Liste des 50 matériaux – change les noms ici pour tes vrais produits !
+let materials = [
+    { name: "Matériau 1", quantity: 0 },
+    { name: "Matériau 2", quantity: 0 },
+    // ... jusqu'à 50
+    // Exemple concret :
+    // { name: "Vis M6x20", quantity: 150 },
+    // { name: "Plaque acier 3mm", quantity: 8 },
+    // etc.
+];
 
 if (localStorage.getItem('materials')) {
     materials = JSON.parse(localStorage.getItem('materials'));
