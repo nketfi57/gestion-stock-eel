@@ -1,9 +1,10 @@
-// Liste des matériaux
+// Liste initiale des matériaux
 let materials = [];
 for (let i = 1; i <= 50; i++) {
     materials.push({ name: `Matériaux ${i}`, quantity: 0, image: '' });
 }
 
+// Charger depuis LocalStorage
 if (localStorage.getItem('materials')) {
     materials = JSON.parse(localStorage.getItem('materials'));
 }
@@ -20,29 +21,26 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// Dark mode
+// Dark mode toggle
 const themeToggle = document.getElementById('themeToggle');
 
 if (localStorage.getItem('theme') === 'dark') {
     document.body.classList.add('dark');
     themeToggle.textContent = 'Mode clair ☀️';
-    themeToggle.classList.add('light-mode');
 }
 
 themeToggle.addEventListener('click', () => {
     document.body.classList.toggle('dark');
     if (document.body.classList.contains('dark')) {
         themeToggle.textContent = 'Mode clair ☀️';
-        themeToggle.classList.add('light-mode');
         localStorage.setItem('theme', 'dark');
     } else {
         themeToggle.textContent = 'Mode sombre 🌙';
-        themeToggle.classList.remove('light-mode');
         localStorage.setItem('theme', 'light');
     }
 });
 
-// Reste du code (renderTable, updateQuantity, editName, addImage, save, filterMaterials, exportToCSV)
+// Fonctions du tableau
 function renderTable() {
     const tbody = document.getElementById('materialsBody');
     tbody.innerHTML = '';
@@ -146,4 +144,3 @@ function exportToCSV() {
 }
 
 renderTable();
-// Dernier essai - 28/01/2026
