@@ -1,4 +1,4 @@
-// Liste des 50 matériaux – noms au pluriel comme demandé
+
 let materials = [];
 for (let i = 1; i <= 50; i++) {
     materials.push({ name: `Matériaux ${i}`, quantity: 0 });
