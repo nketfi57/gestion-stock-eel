@@ -1,14 +1,48 @@
-// Liste initiale
+// Liste des matériaux
 let materials = [];
 for (let i = 1; i <= 50; i++) {
     materials.push({ name: `Matériaux ${i}`, quantity: 0, image: '' });
 }
 
-// Charger sauvegarde
 if (localStorage.getItem('materials')) {
     materials = JSON.parse(localStorage.getItem('materials'));
 }
 
+// Horloge UTC+1 (Paris)
+function updateClock() {
+    const now = new Date();
+    now.setHours(now.getHours() + 1); // UTC+1
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds} (UTC+1)`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// Dark mode
+const themeToggle = document.getElementById('themeToggle');
+
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+    themeToggle.textContent = 'Mode clair ☀️';
+    themeToggle.classList.add('light-mode');
+}
+
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    if (document.body.classList.contains('dark')) {
+        themeToggle.textContent = 'Mode clair ☀️';
+        themeToggle.classList.add('light-mode');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        themeToggle.textContent = 'Mode sombre 🌙';
+        themeToggle.classList.remove('light-mode');
+        localStorage.setItem('theme', 'light');
+    }
+});
+
+// Reste du code (renderTable, updateQuantity, editName, addImage, save, filterMaterials, exportToCSV)
 function renderTable() {
     const tbody = document.getElementById('materialsBody');
     tbody.innerHTML = '';
@@ -111,24 +145,4 @@ function exportToCSV() {
     URL.revokeObjectURL(url);
 }
 
-// Dark mode
-const themeToggle = document.getElementById('themeToggle');
-
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark');
-    themeToggle.textContent = 'Mode clair ☀️';
-}
-
-themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    if (document.body.classList.contains('dark')) {
-        themeToggle.textContent = 'Mode clair ☀️';
-        localStorage.setItem('theme', 'dark');
-    } else {
-        themeToggle.textContent = 'Mode sombre 🌙';
-        localStorage.setItem('theme', 'light');
-    }
-});
-
 renderTable();
-// Commit forcé - 28/01/2026 - Nassim
