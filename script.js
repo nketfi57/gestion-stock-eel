@@ -131,3 +131,4 @@ themeToggle.addEventListener('click', () => {
 });
 
 renderTable();
+// Commit forcé - 28/01/2026 - Nassim
