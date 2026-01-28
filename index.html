@@ -1,46 +1,40 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STOCK RTE ÉQUIPE LIGNE - Gestion EEL</title>
-    <link rel="stylesheet" href="styles.css">
+&nbsp;&nbsp;&nbsp;&nbsp;<meta charset="UTF-8">
+&nbsp;&nbsp;&nbsp;&nbsp;<meta name="viewport" content="width=device-width, initial-scale=1.0">
+&nbsp;&nbsp;&nbsp;&nbsp;<title>STOCK RTE ÉQUIPE LIGNE - Gestion EEL</title>
+&nbsp;&nbsp;&nbsp;&nbsp;<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="header-title">
-            <h1>STOCK RTE ÉQUIPE LIGNE</h1>
-            <div id="clock" class="clock">Chargement de l'heure...</div>
-        </div>
-        <p>Gérez vos matériaux facilement – éditez noms, quantités et ajoutez des images.</p>
-        <button id="themeToggle" class="theme-btn">Mode sombre 🌙</button>
-    </header>
-
-    <main>
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Rechercher un matériau..." onkeyup="filterMaterials()">
-        </div>
-
-        <table id="materialsTable">
-            <thead>
-                <tr>
-                    <th>Matériaux</th>
-                    <th>Quantité</th>
-                    <th>Image</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="materialsBody"></tbody>
-        </table>
-
-        <button onclick="exportToCSV()">Exporter en CSV</button>
-    </main>
-
-    <footer>
-        <p>Site créé par Nassim Ketfi – Stagiaire EEL</p>
-    </footer>
-
-    <script src="script.js"></script>
+&nbsp;&nbsp;&nbsp;&nbsp;<header>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="header-title">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h1>STOCK RTE ÉQUIPE LIGNE</h1>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id="clock" class="clock">Chargement de l'heure...</div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>Gérez vos matériaux facilement – éditez noms, quantités et ajoutez des images.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="themeToggle" class="theme-btn">Mode sombre 🌙</button>
+&nbsp;&nbsp;&nbsp;&nbsp;</header>
+&nbsp;&nbsp;&nbsp;&nbsp;<main>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="search-container">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="searchInput" placeholder="Rechercher un matériau..." onkeyup="filterMaterials()">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<table id="materialsTable">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<thead>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<tr>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<th>Matériaux</th>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<th>Quantité</th>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<th>Image</th>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<th>Actions</th>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tr>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</thead>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<tbody id="materialsBody"></tbody>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</table>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="exportToCSV()">Exporter en CSV</button>
+&nbsp;&nbsp;&nbsp;&nbsp;</main>
+&nbsp;&nbsp;&nbsp;&nbsp;<footer>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>Site créé par Nassim Ketfi – Stagiaire EEL</p>
+&nbsp;&nbsp;&nbsp;&nbsp;</footer>
+&nbsp;&nbsp;&nbsp;&nbsp;<script src="script.js"></script>
 </body>
 </html>
-// COMMITE IDK 28.01.2920
