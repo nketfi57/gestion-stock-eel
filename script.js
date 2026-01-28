@@ -4,19 +4,23 @@ for (let i = 1; i <= 50; i++) {
     materials.push({ name: `Matériaux ${i}`, quantity: 0, image: '' });
 }
 
-// Charger depuis LocalStorage
+// Charger depuis LocalStorage si déjà sauvegardé
 if (localStorage.getItem('materials')) {
     materials = JSON.parse(localStorage.getItem('materials'));
 }
 
-// Horloge UTC+1 (Paris)
+// Horloge Paris (CET/CEST automatique, sans décalage manuel)
 function updateClock() {
     const now = new Date();
-    now.setHours(now.getHours() + 1); // UTC+1
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds} (UTC+1)`;
+    const parisTime = new Intl.DateTimeFormat('fr-FR', {
+        timeZone: 'Europe/Paris',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    }).format(now);
+    
+    document.getElementById('clock').textContent = `${parisTime} (Paris)`;
 }
 setInterval(updateClock, 1000);
 updateClock();
@@ -40,7 +44,7 @@ themeToggle.addEventListener('click', () => {
     }
 });
 
-// Fonctions du tableau
+// Affichage du tableau
 function renderTable() {
     const tbody = document.getElementById('materialsBody');
     tbody.innerHTML = '';
@@ -69,12 +73,14 @@ function renderTable() {
     });
 }
 
+// Modifier la quantité
 function updateQuantity(index, change) {
     materials[index].quantity = Math.max(0, materials[index].quantity + change);
     save();
     renderTable();
 }
 
+// Éditer le nom
 function editName(index) {
     const row = document.getElementById('materialsBody').rows[index];
     const span = row.cells[0].querySelector('.name-span');
@@ -94,6 +100,7 @@ function editName(index) {
     input.onkeydown = e => { if (e.key === 'Enter') saveName(); };
 }
 
+// Ajouter une image
 function addImage(index) {
     const input = document.createElement('input');
     input.type = 'file';
@@ -116,10 +123,12 @@ function addImage(index) {
     input.click();
 }
 
+// Sauvegarde
 function save() {
     localStorage.setItem('materials', JSON.stringify(materials));
 }
 
+// Filtre de recherche
 function filterMaterials() {
     const input = document.getElementById('searchInput').value.toLowerCase();
     const rows = document.querySelectorAll('#materialsBody tr');
@@ -129,6 +138,7 @@ function filterMaterials() {
     });
 }
 
+// Export CSV
 function exportToCSV() {
     let csv = 'Matériaux,Quantité,Image présente\n';
     materials.forEach(mat => {
@@ -143,4 +153,5 @@ function exportToCSV() {
     URL.revokeObjectURL(url);
 }
 
+// Lancement initial
 renderTable();
