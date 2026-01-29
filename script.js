@@ -1,14 +1,14 @@
 // Référence Firebase
 const materialsRef = ref(db, 'materials');
 
-// Variable globale materials
+// Variable globale
 let materials = [];
 
-// Charger et écouter en temps réel
+// Charger et écouter en temps réel depuis Firebase
 onValue(materialsRef, (snapshot) => {
   materials = snapshot.val() || [];
 
-  // Si la base est vide → initialise avec tes matériaux (une seule fois)
+  // Si la base est vide → initialise avec TES matériaux réels (exécuté une seule fois)
   if (materials.length === 0) {
     console.log("Base Firebase vide → initialisation des matériaux");
     materials = [
@@ -109,13 +109,13 @@ onValue(materialsRef, (snapshot) => {
       { name: "RL15-150", location: "HANGAR", quantity: 40, image: '' },
       { name: "MN 15", location: "HANGAR", quantity: 40, image: '' }
     ];
-    set(materialsRef, materials); // Sauvegarde initiale dans Firebase
+    set(materialsRef, materials); // Sauvegarde une seule fois dans Firebase
   }
 
   renderTable();
 });
 
-// Fonctions d'édition (appel set() pour sauvegarder dans Firebase)
+// Fonctions d'édition (sauvegarde dans Firebase)
 function updateQuantity(index, change) {
   materials[index].quantity = Math.max(0, materials[index].quantity + change);
   set(materialsRef, materials);
@@ -189,7 +189,7 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// Dark mode toggle (inchangé)
+// Dark mode (inchangé)
 const themeToggle = document.getElementById('themeToggle');
 if (localStorage.getItem('theme') === 'dark') {
   document.body.classList.add('dark');
@@ -206,7 +206,7 @@ themeToggle.addEventListener('click', () => {
   }
 });
 
-// renderTable (inchangé, mais adapté à Firebase)
+// renderTable (inchangé)
 function renderTable() {
   const tbody = document.getElementById('materialsBody');
   tbody.innerHTML = '';
@@ -265,4 +265,4 @@ function exportToCSV() {
   URL.revokeObjectURL(url);
 }
 
-// Lancement initial (pas besoin de renderTable ici, onValue le fait)
+// Lancement initial (onValue le fait automatiquement)
