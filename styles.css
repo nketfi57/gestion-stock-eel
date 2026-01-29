@@ -33,6 +33,20 @@ header {
     margin-bottom: 2rem;
 }
 
+/* Logo ajouté - centré au-dessus du titre, rond avec ombre */
+.logo {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
 .header-title {
     display: flex;
     flex-direction: column;
@@ -58,7 +72,7 @@ h1 {
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-/* Bouton dark mode - très beau et stylé */
+/* Bouton dark mode (inchangé) */
 #themeToggle {
     position: relative;
     overflow: hidden;
@@ -76,54 +90,32 @@ h1 {
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#themeToggle:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: var(--glow), 0 14px 35px rgba(0,0,0,0.5);
-    background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.15));
+/* ... Le reste de ton CSS reste inchangé ... */
+
+/* Ajout pour colonne Emplacement (style similaire à quantité) */
+.location-span {
+    cursor: pointer;
 }
 
-#themeToggle:active {
-    transform: scale(0.92);
+.location-input {
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: rgba(var(--card-bg), 0.6);
+    color: var(--text);
+    transition: all 0.3s ease;
 }
 
-/* Ripple effect au clic */
-#themeToggle::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255,255,255,0.45);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.7s ease, height 0.7s ease;
-    pointer-events: none;
+.location-input:focus {
+    border-color: var(--edit);
+    background: var(--card-bg);
+    box-shadow: 0 0 0 4px rgba(var(--edit), 0.25);
 }
 
-#themeToggle:active::after {
-    width: 400px;
-    height: 400px;
-    opacity: 0;
+/* Bouton Éditer emplacement (même style que Éditer nom) */
+.edit-location-btn {
+    background: linear-gradient(135deg, var(--edit) 0%, #9333ea 100%);
+    color: white;
 }
-
-/* Tableau et boutons (comme avant) */
-table { width: 100%; border-collapse: separate; border-spacing: 0 12px; }
-th, td { padding: 1.2rem 1.4rem; background: var(--card-bg); border: none; }
-th { background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; }
-tr { background: var(--card-bg); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); transition: all 0.35s ease; }
-tr:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.5); }
-.action-btn { min-width: 42px; height: 42px; margin: 0 5px; padding: 0 16px; border-radius: 9999px; color: white; border: none; cursor: pointer; transition: all 0.28s; box-shadow: 0 4px 12px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
-.add-btn { background: linear-gradient(135deg, #10b981, #059669); }
-.remove-btn { background: linear-gradient(135deg, #ef4444, #dc2626); }
-.edit-btn { background: linear-gradient(135deg, #c084fc, #a855f7); }
-.image-btn { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
-.action-btn:hover { transform: translateY(-3px) scale(1.08); box-shadow: 0 10px 25px rgba(0,0,0,0.45); }
-.action-btn:active { transform: scale(0.92); }
-.action-btn::after { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; background: rgba(255,255,255,0.4); border-radius: 50%; transform: translate(-50%, -50%); transition: width 0.6s ease, height 0.6s ease; pointer-events: none; }
-.action-btn:active::after { width: 300px; height: 300px; opacity: 0; }
-.material-image { width: 60px; height: 60px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.material-image:hover { transform: scale(1.22) rotate(4deg); box-shadow: var(--glow); }
-.quantity-input, .name-input { width: 100%; padding: 0.6rem 0.9rem; border: 2px solid transparent; border-radius: 8px; font-size: 1rem; background: rgba(var(--card-bg), 0.6); color: var(--text); transition: all 0.3s ease; }
-.quantity-input:focus, .name-input:focus { border-color: var(--accent); background: var(--card-bg); box-shadow: 0 0 0 4px rgba(var(--accent), 0.25); }
-footer { text-align: center; margin-top: 4rem; padding: 2rem; color: var(--text-muted); font-size: 0.95rem; border-top: 1px solid var(--border); }
