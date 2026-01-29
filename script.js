@@ -1,13 +1,16 @@
-// Référence à la collection 'materials' dans Firebase
+// Référence Firebase
 const materialsRef = ref(db, 'materials');
 
-// Charger les données en temps réel depuis Firebase
-onValue(materialsRef, (snapshot) => {
-  const data = snapshot.val();
-  materials = data || [];
+// Variable globale materials
+let materials = [];
 
-  // Si la base est vide (premier lancement), initialise avec tes matériaux réels
+// Charger et écouter en temps réel
+onValue(materialsRef, (snapshot) => {
+  materials = snapshot.val() || [];
+
+  // Si la base est vide → initialise avec tes matériaux (une seule fois)
   if (materials.length === 0) {
+    console.log("Base Firebase vide → initialisation des matériaux");
     materials = [
       { name: "P27E X", location: "HANGAR", quantity: 40, image: '' },
       { name: "P46G Simel", location: "HANGAR", quantity: 6, image: '' },
@@ -112,22 +115,154 @@ onValue(materialsRef, (snapshot) => {
   renderTable();
 });
 
-// Sauvegarde quand on modifie quelque chose (quantité, nom, emplacement, image)
-function save() {
+// Fonctions d'édition (appel set() pour sauvegarder dans Firebase)
+function updateQuantity(index, change) {
+  materials[index].quantity = Math.max(0, materials[index].quantity + change);
   set(materialsRef, materials);
 }
 
-// Le reste de ton code reste identique (renderTable, updateQuantity, editName, editLocation, addImage, filterMaterials, exportToCSV)
-// Copie-les de ton script.js actuel si besoin, elles n'ont pas changé
-
-// Exemple : updateQuantity appelle save()
-function updateQuantity(index, change) {
-  materials[index].quantity = Math.max(0, materials[index].quantity + change);
-  save();
-  // Pas besoin de renderTable() ici, onValue le fait en temps réel
+function editName(index) {
+  const row = document.getElementById('materialsBody').rows[index];
+  const span = row.cells[0].querySelector('.name-span');
+  const input = row.cells[0].querySelector('.name-input');
+  span.style.display = 'none';
+  input.style.display = 'inline-block';
+  input.focus();
+  input.select();
+  const saveName = () => {
+    materials[index].name = input.value.trim() || `Matériau ${index+1}`;
+    set(materialsRef, materials);
+  };
+  input.onblur = saveName;
+  input.onkeydown = e => { if (e.key === 'Enter') saveName(); };
 }
 
-// Pareil pour editName, editLocation, addImage : appelle save() à la fin
+function editLocation(index) {
+  const row = document.getElementById('materialsBody').rows[index];
+  const span = row.cells[1].querySelector('.location-span');
+  const input = row.cells[1].querySelector('.location-input');
+  span.style.display = 'none';
+  input.style.display = 'inline-block';
+  input.focus();
+  input.select();
+  const saveLocation = () => {
+    materials[index].location = input.value.trim();
+    set(materialsRef, materials);
+  };
+  input.onblur = saveLocation;
+  input.onkeydown = e => { if (e.key === 'Enter') saveLocation(); };
+}
 
-// Lancement initial
-renderTable();
+function addImage(index) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/jpeg,image/png,image/gif';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Image trop lourde (max 2 Mo)");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = event => {
+      materials[index].image = event.target.result;
+      set(materialsRef, materials);
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
+
+// Horloge (inchangé)
+function updateClock() {
+  const now = new Date();
+  const parisTime = new Intl.DateTimeFormat('fr-FR', {
+    timeZone: 'Europe/Paris',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  }).format(now);
+  document.getElementById('clock').textContent = `${parisTime} (Paris)`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// Dark mode toggle (inchangé)
+const themeToggle = document.getElementById('themeToggle');
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark');
+  themeToggle.textContent = 'Mode clair ☀️';
+}
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  if (document.body.classList.contains('dark')) {
+    themeToggle.textContent = 'Mode clair ☀️';
+    localStorage.setItem('theme', 'dark');
+  } else {
+    themeToggle.textContent = 'Mode sombre 🌙';
+    localStorage.setItem('theme', 'light');
+  }
+});
+
+// renderTable (inchangé, mais adapté à Firebase)
+function renderTable() {
+  const tbody = document.getElementById('materialsBody');
+  tbody.innerHTML = '';
+  materials.forEach((mat, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>
+        <span class="name-span">${mat.name}</span>
+        <input class="name-input" type="text" value="${mat.name}" style="display:none;">
+      </td>
+      <td>
+        <span class="location-span">${mat.location || 'Aucun emplacement'}</span>
+        <input class="location-input" type="text" value="${mat.location}" style="display:none;">
+      </td>
+      <td>
+        <span class="quantity-span">${mat.quantity}</span>
+        <input class="quantity-input" type="number" min="0" value="${mat.quantity}" style="display:none;">
+      </td>
+      <td>
+        ${mat.image ? `<img src="${mat.image}" class="material-image" alt="${mat.name}">` : 'Aucune'}
+      </td>
+      <td>
+        <button class="action-btn add-btn" onclick="updateQuantity(${index}, 1)">+1</button>
+        <button class="action-btn remove-btn" onclick="updateQuantity(${index}, -1)">-1</button>
+        <button class="action-btn edit-btn" onclick="editName(${index})">Éditer nom</button>
+        <button class="action-btn edit-btn" onclick="editLocation(${index})">Éditer emplacement</button>
+        <button class="action-btn image-btn" onclick="addImage(${index})">Ajouter image</button>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
+// filterMaterials (inchangé)
+function filterMaterials() {
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const rows = document.querySelectorAll('#materialsBody tr');
+  rows.forEach(row => {
+    const name = row.cells[0].textContent.toLowerCase();
+    row.style.display = name.includes(input) ? '' : 'none';
+  });
+}
+
+// exportToCSV (inchangé)
+function exportToCSV() {
+  let csv = 'Matériaux,Emplacement,Quantité,Image présente\n';
+  materials.forEach(mat => {
+    csv += `"${mat.name.replace(/"/g,'""')}","${(mat.location || '').replace(/"/g,'""')}",${mat.quantity},${mat.image ? 'Oui' : 'Non'}\n`;
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'stock_rte_equipe_ligne.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Lancement initial (pas besoin de renderTable ici, onValue le fait)
