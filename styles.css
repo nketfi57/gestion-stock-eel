@@ -1,3 +1,7 @@
+/* ==========================================================================
+   STOCK RTE ÉQUIPE LIGNE - Boutons refaits colorés, image clean et raisonnable
+   ========================================================================== */
+
 :root {
     --bg: #0f172a;
     --card-bg: #1e293b;
@@ -33,20 +37,6 @@ header {
     margin-bottom: 2rem;
 }
 
-/* Logo ajouté - centré au-dessus du titre, rond avec ombre */
-.logo {
-    max-width: 150px;
-    max-height: 150px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    box-shadow: var(--shadow);
-    transition: transform 0.3s ease;
-}
-
-.logo:hover {
-    transform: scale(1.05);
-}
-
 .header-title {
     display: flex;
     flex-direction: column;
@@ -54,9 +44,25 @@ header {
     gap: 0.5rem;
 }
 
+.logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6), 0 0 20px rgba(14,165,233,0.5);
+    border: 4px solid rgba(255,255,255,0.25);
+    transition: all 0.4s ease;
+}
+
+.logo:hover {
+    transform: scale(1.08) rotate(5deg);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.7), 0 0 30px rgba(34,211,238,0.7);
+}
+
 h1 {
     margin: 0;
-    font-size: 2.8rem;
+    font-size: 2.6rem;
     font-weight: 900;
     letter-spacing: -1px;
     text-shadow: 0 3px 10px rgba(0,0,0,0.5);
@@ -72,17 +78,15 @@ h1 {
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-/* Bouton dark mode (inchangé) */
+/* Bouton dark mode (très beau) */
 #themeToggle {
-    position: relative;
-    overflow: hidden;
     margin-top: 1.2rem;
-    padding: 0.9rem 2rem;
-    font-size: 1.1rem;
+    padding: 0.8rem 1.8rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: white;
-    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
-    border: 2px solid rgba(255,255,255,0.4);
+    background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.12));
+    border: 2px solid rgba(255,255,255,0.35);
     border-radius: 999px;
     cursor: pointer;
     backdrop-filter: blur(12px);
@@ -90,33 +94,150 @@ h1 {
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ... Le reste de ton CSS reste inchangé ... */
-
-/* Ajout pour colonne Emplacement (style similaire à quantité) */
-.location-span {
-    cursor: pointer;
+#themeToggle:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--glow), 0 14px 35px rgba(0,0,0,0.5);
+    background: linear-gradient(135deg, rgba(255,255,255,0.32), rgba(255,255,255,0.18));
 }
 
-.location-input {
+#themeToggle:active {
+    transform: scale(0.94);
+}
+
+/* Tableau */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+th, td {
+    padding: 1.2rem 1.4rem;
+    background: var(--card-bg);
+    border: none;
+}
+
+th {
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    border-radius: 12px 12px 0 0;
+}
+
+tr {
+    background: var(--card-bg);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.35s ease;
+}
+
+tr:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+}
+
+/* Image corrigée : taille raisonnable, centrée, pas de débordement */
+.material-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: block;
+    margin: 0 auto;
+}
+
+.material-image:hover {
+    transform: scale(1.15);
+    box-shadow: var(--glow);
+}
+
+/* Boutons refaits : ronds, colorés, glow, ripple, plus beaux */
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 48px;
+    margin: 0 6px;
+    padding: 0 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn:hover {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.55);
+}
+
+.action-btn:active {
+    transform: scale(0.92);
+}
+
+/* Ripple au clic */
+.action-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.45);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.7s ease, height 0.7s ease;
+    pointer-events: none;
+}
+
+.action-btn:active::after {
+    width: 400px;
+    height: 400px;
+    opacity: 0;
+}
+
+/* Couleurs spécifiques (plus vives et belles) */
+.add-btn    { background: linear-gradient(135deg, #10b981, #059669); }
+.remove-btn { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.edit-btn   { background: linear-gradient(135deg, #c084fc, #a855f7); }
+.image-btn  { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+
+/* Inputs édition */
+.quantity-input, .name-input, .location-input {
     width: 100%;
     padding: 0.6rem 0.9rem;
     border: 2px solid transparent;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
     background: rgba(var(--card-bg), 0.6);
     color: var(--text);
     transition: all 0.3s ease;
 }
 
-.location-input:focus {
-    border-color: var(--edit);
+.quantity-input:focus, .name-input:focus, .location-input:focus {
+    border-color: var(--accent);
     background: var(--card-bg);
-    box-shadow: 0 0 0 4px rgba(var(--edit), 0.25);
+    box-shadow: 0 0 0 4px rgba(var(--accent), 0.3);
 }
 
-/* Bouton Éditer emplacement (même style que Éditer nom) */
-.edit-location-btn {
-    background: linear-gradient(135deg, var(--edit) 0%, #9333ea 100%);
-    color: white;
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 4rem;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    border-top: 1px solid var(--border);
 }
-//please accept
