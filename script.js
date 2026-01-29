@@ -1,86 +1,105 @@
-// Liste initiale des matériaux
-let materials = [];
-// Les 50 premiers (comme avant)
-for (let i = 1; i <= 50; i++) {
-    materials.push({ name: `Matériaux ${i}`, location: '', quantity: 0, image: '' });
-}
-// Ajout des 70 nouveaux avec tes noms (emplacement vide par défaut, éditable)
-const additionalMaterials = [
-    { name: "HANGAR P27E X", location: "", quantity: 40, image: "" },
-    { name: "HANGAR P46G Simel", location: "", quantity: 6, image: "" },
-    { name: "HANGAR P46F Simel", location: "", quantity: 40, image: "" },
-    { name: "HANGAR P46 Dervaux", location: "", quantity: 30, image: "" },
-    { name: "HANGAR P40 Simel", location: "", quantity: 50, image: "" },
-    { name: "HANGAR P40 Dervaux", location: "", quantity: 100, image: "" },
-    { name: "HANGAR AP60 Xx2", location: "", quantity: 40, image: "" },
-    { name: "HANGAR P1 HT", location: "", quantity: 40, image: "" },
-    { name: "HANGAR P2 HT", location: "", quantity: 20, image: "" },
-    { name: "HANGAR P2 HTC", location: "", quantity: 60, image: "" },
-    { name: "HANGAR P3 HT oui", location: "", quantity: 20, image: "" },
-    { name: "HANGAR P4 HT", location: "", quantity: 20, image: "" },
-    { name: "HANGAR P5 HT", location: "", quantity: 40, image: "" },
-    { name: "HANGAR P6 HTC oui", location: "", quantity: 10, image: "" },
-    { name: "HANGAR Entretove Diverre", location: "", quantity: 10, image: "" },
-    { name: "HANGAR ENQU4B570", location: "", quantity: 10, image: "" },
-    { name: "HANGAR ENT6B570", location: "", quantity: 10, image: "" },
-    { name: "HANGAR Pic Anti-nid court", location: "", quantity: 1000, image: "" },
-    { name: "HANGAR Pic Anti-nid Long", location: "", quantity: 1000, image: "" },
-    { name: "HANGAR SRL 30-6004", location: "", quantity: 40, image: "" },
-    { name: "HANGAR TA30B ->", location: "", quantity: 30, image: "" },
-    { name: "HANGAR SEF 12-21 oui", location: "", quantity: 60, image: "" },
-    { name: "HANGAR P34E", location: "", quantity: 30, image: "" },
-    { name: "HANGAR P34D", location: "", quantity: 60, image: "" },
-    { name: "HANGAR P27D", location: "", quantity: 10, image: "" },
-    { name: "HANGAR P27E", location: "", quantity: 30, image: "" },
-    { name: "HANGAR P23D", location: "", quantity: 2, image: "" },
-    { name: "HANGAR P23E", location: "", quantity: 30, image: "" },
-    { name: "HANGAR JOL B oui", location: "", quantity: 20, image: "" },
-    { name: "HANGAR P19-23 oui", location: "", quantity: 20, image: "" },
-    { name: "HANGAR Boules STH", location: "", quantity: 40, image: "" },
-    { name: "HANGAR Duplex X", location: "", quantity: 0, image: "" }, // X comme inconnu
-    { name: "HANGAR C25", location: "", quantity: 60, image: "" },
-    { name: "HANGAR AP18C", location: "", quantity: 60, image: "" },
-    { name: "HANGAR BBC-570 oui", location: "", quantity: 100, image: "" },
-    { name: "HANGAR BBC-412 oui", location: "", quantity: 50, image: "" },
-    { name: "HANGAR BBC-228 oui", location: "", quantity: 50, image: "" },
-    { name: "HANGAR CU-570 oui", location: "", quantity: 40, image: "" },
-    { name: "HANGAR PT 15/600 <-", location: "", quantity: 20, image: "" },
-    { name: "HANGAR PT30/400 ->", location: "", quantity: 20, image: "" },
-    { name: "HANGAR PR15/400 oui", location: "", quantity: 3, image: "" },
-    { name: "HANGAR PR15/600 oui", location: "", quantity: 3, image: "" },
-    { name: "HANGAR PT 15/400 oui", location: "", quantity: 50, image: "" },
-    { name: "HANGAR JUP 15", location: "", quantity: 30, image: "" },
-    { name: "HANGAR RL15-300", location: "", quantity: 50, image: "" },
-    { name: "HANGAR RL15-900", location: "", quantity: 39, image: "" },
-    { name: "HANGAR TA 15B oui", location: "", quantity: 40, image: "" },
-    { name: "HANGAR CT30-160", location: "", quantity: 9, image: "" },
-    { name: "HANGAR Etoux", location: "", quantity: 500, image: "" },
-    { name: "HANGAR RL15-600", location: "", quantity: 500, image: "" },
-    { name: "HANGAR Patourette", location: "", quantity: 500, image: "" },
-    { name: "HANGAR END6B 1144 Xx2", location: "", quantity: 100, image: "" },
-    { name: "HANGAR CM 30/60A", location: "", quantity: 4, image: "" },
-    { name: "HANGAR RL 30/300", location: "", quantity: 9, image: "" },
-    { name: "HANGAR RL 60/900", location: "", quantity: 2, image: "" },
-    { name: "HANGAR MCE 268 Xx2", location: "", quantity: 200, image: "" },
-    { name: "HANGAR QDC + echellon", location: "", quantity: 100, image: "" },
-    { name: "HANGAR BBC 1144", location: "", quantity: 50, image: "" },
-    { name: "HANGAR OE+BS300 oui", location: "", quantity: 20, image: "" },
-    { name: "HANGAR S15 N47", location: "", quantity: 20, image: "" },
-    { name: "HANGAR BG 100", location: "", quantity: 60, image: "" },
-    { name: "HANGAR BG 400", location: "", quantity: 20, image: "" },
-    { name: "HANGAR RL Reglo oui", location: "", quantity: 10, image: "" },
-    { name: "HANGAR CT 30-120", location: "", quantity: 40, image: "" },
-    { name: "HANGAR OE+ B5 150 oui", location: "", quantity: 60, image: "" },
-    { name: "HANGAR CT 15-120 oui", location: "", quantity: 100, image: "" },
-    { name: "HANGAR PF 30 C", location: "", quantity: 40, image: "" },
-    { name: "HANGAR PFD 30 oui", location: "", quantity: 11, image: "" },
-    { name: "HANGAR PFD 15 oui", location: "", quantity: 25, image: "" },
-    { name: "HANGAR PFD 15 CA oui", location: "", quantity: 50, image: "" },
-    { name: "HANGAR OE+B5 100 oui", location: "", quantity: 200, image: "" }
+// Liste complète avec TES 70+ matériaux réels
+let materials = [
+    // Tes matériaux avec emplacement et quantité déjà remplis
+    { name: "PYLONE", location: "HANGAR P27E X", quantity: 40, image: '' },
+    { name: "Simel", location: "HANGAR P46G", quantity: 6, image: '' },
+    { name: "Simel", location: "HANGAR P46F", quantity: 40, image: '' },
+    { name: "Dervaux", location: "HANGAR P46", quantity: 30, image: '' },
+    { name: "Simel", location: "HANGAR P40", quantity: 50, image: '' },
+    { name: "Dervaux", location: "HANGAR P40", quantity: 100, image: '' },
+    { name: "AP60 Xx2", location: "HANGAR", quantity: 40, image: '' },
+    { name: "HT", location: "HANGAR P1", quantity: 40, image: '' },
+    { name: "HT", location: "HANGAR P2", quantity: 20, image: '' },
+    { name: "HTC", location: "HANGAR P2", quantity: 60, image: '' },
+    { name: "HT oui", location: "HANGAR P3", quantity: 20, image: '' },
+    { name: "HT", location: "HANGAR P4", quantity: 20, image: '' },
+    { name: "HT", location: "HANGAR P5", quantity: 40, image: '' },
+    { name: "HTC oui", location: "HANGAR P6", quantity: 10, image: '' },
+    { name: "Entretove Diverre", location: "HANGAR", quantity: 10, image: '' },
+    { name: "ENQU4B570", location: "HANGAR", quantity: 10, image: '' },
+    { name: "ENT6B570", location: "HANGAR", quantity: 10, image: '' },
+    { name: "Pic Anti-nid court", location: "HANGAR", quantity: 1000, image: '' },
+    { name: "Pic Anti-nid Long", location: "HANGAR", quantity: 1000, image: '' },
+    { name: "SRL 30-6004", location: "HANGAR", quantity: 40, image: '' },
+    { name: "TA30B ->", location: "HANGAR", quantity: 30, image: '' },
+    { name: "SEF 12-21 oui", location: "HANGAR", quantity: 60, image: '' },
+    { name: "P34E", location: "HANGAR", quantity: 30, image: '' },
+    { name: "P34D", location: "HANGAR", quantity: 60, image: '' },
+    { name: "P27D", location: "HANGAR", quantity: 10, image: '' },
+    { name: "P27E", location: "HANGAR", quantity: 30, image: '' },
+    { name: "P23D", location: "HANGAR", quantity: 2, image: '' },
+    { name: "P23E", location: "HANGAR", quantity: 30, image: '' },
+    { name: "JOL B oui", location: "HANGAR", quantity: 20, image: '' },
+    { name: "P19-23 oui", location: "HANGAR", quantity: 20, image: '' },
+    { name: "Boules STH", location: "HANGAR", quantity: 40, image: '' },
+    { name: "Duplex X", location: "HANGAR", quantity: 0, image: '' },
+    { name: "C25", location: "HANGAR", quantity: 60, image: '' },
+    { name: "AP18C", location: "HANGAR", quantity: 60, image: '' },
+    { name: "BBC-570 oui", location: "HANGAR", quantity: 100, image: '' },
+    { name: "BBC-412 oui", location: "HANGAR", quantity: 50, image: '' },
+    { name: "BBC-228 oui", location: "HANGAR", quantity: 50, image: '' },
+    { name: "CU-570 oui", location: "HANGAR", quantity: 40, image: '' },
+    { name: "PT 15/600 <-", location: "HANGAR", quantity: 20, image: '' },
+    { name: "PT30/400 ->", location: "HANGAR", quantity: 20, image: '' },
+    { name: "PR15/400 oui", location: "HANGAR", quantity: 3, image: '' },
+    { name: "PR15/600 oui", location: "HANGAR", quantity: 3, image: '' },
+    { name: "PT 15/400 oui", location: "HANGAR", quantity: 50, image: '' },
+    { name: "JUP 15", location: "HANGAR", quantity: 30, image: '' },
+    { name: "RL15-300", location: "HANGAR", quantity: 50, image: '' },
+    { name: "RL15-900", location: "HANGAR", quantity: 39, image: '' },
+    { name: "TA 15B oui", location: "HANGAR", quantity: 40, image: '' },
+    { name: "CT30-160", location: "HANGAR", quantity: 9, image: '' },
+    { name: "Etoux", location: "HANGAR", quantity: 500, image: '' },
+    { name: "RL15-600", location: "HANGAR", quantity: 500, image: '' },
+    { name: "Patourette", location: "HANGAR", quantity: 500, image: '' },
+    { name: "END6B 1144 Xx2", location: "HANGAR", quantity: 100, image: '' },
+    { name: "CM 30/60A", location: "HANGAR", quantity: 4, image: '' },
+    { name: "RL 30/300", location: "HANGAR", quantity: 9, image: '' },
+    { name: "RL 60/900", location: "HANGAR", quantity: 2, image: '' },
+    { name: "MCE 268 Xx2", location: "HANGAR", quantity: 200, image: '' },
+    { name: "QDC + echellon", location: "HANGAR", quantity: 100, image: '' },
+    { name: "BBC 1144", location: "HANGAR", quantity: 50, image: '' },
+    { name: "OE+BS300 oui", location: "HANGAR", quantity: 20, image: '' },
+    { name: "S15 N47", location: "HANGAR", quantity: 20, image: '' },
+    { name: "BG 100", location: "HANGAR", quantity: 60, image: '' },
+    { name: "BG 400", location: "HANGAR", quantity: 20, image: '' },
+    { name: "RL Reglo oui", location: "HANGAR", quantity: 10, image: '' },
+    { name: "CT 30-120", location: "HANGAR", quantity: 40, image: '' },
+    { name: "OE+ B5 150 oui", location: "HANGAR", quantity: 60, image: '' },
+    { name: "CT 15-120 oui", location: "HANGAR", quantity: 100, image: '' },
+    { name: "PF 30 C", location: "HANGAR", quantity: 40, image: '' },
+    { name: "PFD 30 oui", location: "HANGAR", quantity: 11, image: '' },
+    { name: "PFD 15 oui", location: "HANGAR", quantity: 25, image: '' },
+    { name: "PFD 15 CA oui", location: "HANGAR", quantity: 50, image: '' },
+    { name: "OE+B5 100 oui", location: "HANGAR", quantity: 200, image: '' },
+    { name: "TT 15-80 oui", location: "HANGAR", quantity: 60, image: '' },
+    { name: "CT 15/80", location: "HANGAR", quantity: 20, image: '' },
+    { name: "PF 15 C", location: "HANGAR", quantity: 30, image: '' },
+    { name: "PFS 15", location: "HANGAR", quantity: 7, image: '' },
+    { name: "C18 A1 oui", location: "HANGAR", quantity: 50, image: '' },
+    { name: "C18 A2 oui", location: "HANGAR", quantity: 2, image: '' },
+    { name: "C18 FE", location: "HANGAR", quantity: 40, image: '' },
+    { name: "M5 MA 1144", location: "HANGAR", quantity: 15, image: '' },
+    { name: "GB 20B", location: "HANGAR", quantity: 25, image: '' },
+    { name: "CD 15 A oui", location: "HANGAR", quantity: 30, image: '' },
+    { name: "CD 30 A", location: "HANGAR", quantity: 15, image: '' },
+    { name: "CM 30/15A oui", location: "HANGAR", quantity: 15, image: '' },
+    { name: "B15 M", location: "HANGAR", quantity: 10, image: '' },
+    { name: "TD 15 X 30 X", location: "HANGAR", quantity: 8, image: '' },
+    { name: "CM 15/30A", location: "HANGAR", quantity: 40, image: '' },
+    { name: "A15 F.U", location: "HANGAR", quantity: 20, image: '' },
+    { name: "CC 15A", location: "HANGAR", quantity: 30, image: '' },
+    { name: "CC 30 A", location: "HANGAR", quantity: 15, image: '' },
+    { name: "16X70", location: "HANGAR", quantity: 10, image: '' },
+    { name: "18X70", location: "HANGAR", quantity: 40, image: '' },
+    { name: "24X90", location: "HANGAR", quantity: 4, image: '' },
+    { name: "20X90", location: "HANGAR", quantity: 4, image: '' },
+    { name: "16X100", location: "HANGAR", quantity: 20, image: '' },
+    { name: "RL15-150", location: "HANGAR", quantity: 40, image: '' },
+    { name: "MN 15", location: "HANGAR", quantity: 40, image: '' }
 ];
-materials = materials.concat(additionalMaterials); // Ajoute les 70 à la fin
 
-// Charger depuis LocalStorage si déjà sauvegardé (priorité sur les données locales)
+// Charger depuis LocalStorage (priorité sur les données locales si tu as déjà modifié)
 if (localStorage.getItem('materials')) {
     materials = JSON.parse(localStorage.getItem('materials'));
 }
@@ -117,7 +136,7 @@ themeToggle.addEventListener('click', () => {
     }
 });
 
-// Affichage du tableau (ajout colonne Emplacement)
+// Affichage du tableau (inchangé, mais maintenant avec tes données)
 function renderTable() {
     const tbody = document.getElementById('materialsBody');
     tbody.innerHTML = '';
@@ -151,14 +170,15 @@ function renderTable() {
     });
 }
 
-// Modifier la quantité (inchangé)
+// Les fonctions updateQuantity, editName, editLocation, addImage, save, filterMaterials, exportToCSV restent identiques à ton code actuel
+// (copie-les de ton script.js actuel si besoin, elles n'ont pas changé)
+
 function updateQuantity(index, change) {
     materials[index].quantity = Math.max(0, materials[index].quantity + change);
     save();
     renderTable();
 }
 
-// Éditer le nom (inchangé)
 function editName(index) {
     const row = document.getElementById('materialsBody').rows[index];
     const span = row.cells[0].querySelector('.name-span');
@@ -176,7 +196,6 @@ function editName(index) {
     input.onkeydown = e => { if (e.key === 'Enter') saveName(); };
 }
 
-// NOUVEAU : Éditer l'emplacement
 function editLocation(index) {
     const row = document.getElementById('materialsBody').rows[index];
     const span = row.cells[1].querySelector('.location-span');
@@ -194,7 +213,6 @@ function editLocation(index) {
     input.onkeydown = e => { if (e.key === 'Enter') saveLocation(); };
 }
 
-// Ajouter une image (inchangé)
 function addImage(index) {
     const input = document.createElement('input');
     input.type = 'file';
@@ -217,12 +235,10 @@ function addImage(index) {
     input.click();
 }
 
-// Sauvegarde (inchangé)
 function save() {
     localStorage.setItem('materials', JSON.stringify(materials));
 }
 
-// Filtre de recherche (inchangé)
 function filterMaterials() {
     const input = document.getElementById('searchInput').value.toLowerCase();
     const rows = document.querySelectorAll('#materialsBody tr');
@@ -232,17 +248,16 @@ function filterMaterials() {
     });
 }
 
-// Export CSV (ajout colonne Emplacement)
 function exportToCSV() {
     let csv = 'Matériaux,Emplacement,Quantité,Image présente\n';
     materials.forEach(mat => {
-        csv += `"${mat.name.replace(/"/g,'""')}","${mat.location.replace(/"/g,'""')}",${mat.quantity},${mat.image ? 'Oui' : 'Non'}\n`;
+        csv += `"${mat.name.replace(/"/g,'""')}","${(mat.location || '').replace(/"/g,'""')}",${mat.quantity},${mat.image ? 'Oui' : 'Non'}\n`;
     });
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'stock_eel.csv';
+    a.download = 'stock_rte_equipe_ligne.csv';
     a.click();
     URL.revokeObjectURL(url);
 }
