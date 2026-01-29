@@ -1,4 +1,3 @@
-// Liste complète avec TES 70+ matériaux réels
 // Liste complète avec TES matériaux réels
 // Emplacement = "HANGAR" pour tous (comme demandé)
 // Nom = ce que tu as donné (après "HANGAR")
