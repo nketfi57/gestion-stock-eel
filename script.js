@@ -233,11 +233,18 @@ function initApp() {
     input.click();
   };
 
+  // 🔥 FONCTION RENDERTABLE MODIFIÉE - Ajoute la classe low-stock
   function renderTable() {
     const tbody = document.getElementById('materialsBody');
     tbody.innerHTML = '';
     materials.forEach((mat, index) => {
       const row = document.createElement('tr');
+      
+      // 🔥 ALERTE : Ligne rouge si quantité < 3
+      if (mat.quantity < 3) {
+        row.classList.add('low-stock');
+      }
+      
       row.innerHTML = `
         <td>
           <span class="name-span">${mat.name}</span>
