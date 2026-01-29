@@ -57,6 +57,7 @@
       const app = initializeApp(firebaseConfig);
       const db = getDatabase(app);
       window.db = db; // Accessible dans script.js
+      console.log("Firebase connecté !"); // Debug : vérifie dans la console F12
     </script>
 
     <script src="script.js"></script>
