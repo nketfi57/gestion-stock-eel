@@ -37,12 +37,12 @@
     <footer>
         <p>Site créé par Nassim Ketfi – Stagiaire EEL</p>
     </footer>
-
+    
     <!-- Firebase SDK -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
       import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js";
-
+      
       const firebaseConfig = {
         apiKey: "AIzaSyAJ-Y9I9M-Us5-aOlgB_EQcIpOYWvgfo9c",
         authDomain: "gestion-stock-eel.firebaseapp.com",
@@ -53,14 +53,18 @@
         appId: "1:701983887122:web:16cdaf148f940a4bf1adcb",
         measurementId: "G-V7X37Z2Y6V"
       };
-
+      
       const app = initializeApp(firebaseConfig);
       const db = getDatabase(app);
-      window.db = db;
-      console.log("Firebase chargé !");
+      
+      window.firebaseDB = db;
+      window.firebaseRef = ref;
+      window.firebaseOnValue = onValue;
+      window.firebaseSet = set;
+      
+      console.log("Firebase initialisé !");
+      
+      import('./script.js');
     </script>
-
-    <!-- Ton script principal en mode module -->
-    <script type="module" src="script.js"></script>
 </body>
 </html>
