@@ -218,7 +218,7 @@ onValue(materialsRef, (snapshot) => {
   }
 
   renderTable();
-});
+
 
 // Fonctions d'édition
 function updateQuantity(index, change) {
