@@ -37,34 +37,28 @@
     <footer>
         <p>Site créé par Nassim Ketfi – Stagiaire EEL</p>
     </footer>
-    <!-- Firebase SDK - Copié depuis Firebase -->
-<script type="module">
-  // Import Firebase modules
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-  import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js";
-  // import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-analytics.js"; // Optionnel, on le laisse commenté
 
-  // Ton firebaseConfig exact
-  const firebaseConfig = {
-    apiKey: "AIzaSyAJ-Y9I9M-Us5-aOlgB_EQcIpOYWvgfo9c",
-    authDomain: "gestion-stock-eel.firebaseapp.com",
-    databaseURL: "https://gestion-stock-eel-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "gestion-stock-eel",
-    storageBucket: "gestion-stock-eel.firebasestorage.app",
-    messagingSenderId: "701983887122",
-    appId: "1:701983887122:web:16cdaf148f940a4bf1adcb",
-    measurementId: "G-V7X37Z2Y6V"
-  };
+    <!-- Firebase SDK (Realtime Database) -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+      import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js";
 
-  // Initialise Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+      const firebaseConfig = {
+        apiKey: "AIzaSyAJ-Y9I9M-Us5-aOlgB_EQcIpOYWvgfo9c",
+        authDomain: "gestion-stock-eel.firebaseapp.com",
+        databaseURL: "https://gestion-stock-eel-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "gestion-stock-eel",
+        storageBucket: "gestion-stock-eel.firebasestorage.app",
+        messagingSenderId: "701983887122",
+        appId: "1:701983887122:web:16cdaf148f940a4bf1adcb",
+        measurementId: "G-V7X37Z2Y6V"
+      };
 
-  // Rend db accessible dans script.js
-  window.db = db;
-</script>
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      window.db = db; // Accessible dans script.js
+    </script>
 
-<script src="script.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
