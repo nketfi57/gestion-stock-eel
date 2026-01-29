@@ -1,30 +1,45 @@
 /* ==========================================================================
-   STOCK RTE ÉQUIPE LIGNE - Boutons refaits colorés, image clean et raisonnable
+   STOCK RTE ÉQUIPE LIGNE - Version améliorée avec dark mode + alertes stock
    ========================================================================== */
 
 :root {
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --primary: #0ea5e9;
+    --primary-dark: #0284c7;
+    --accent: #22d3ee;
+    --danger: #ef4444;
+    --edit: #c084fc;
+    --image: #fbbf24;
+    --border: #e2e8f0;
+    --shadow: 0 4px 12px rgba(0,0,0,0.1);
+    --glow: 0 0 18px rgba(34, 211, 238, 0.5);
+}
+
+/* Mode sombre */
+body.dark {
     --bg: #0f172a;
     --card-bg: #1e293b;
     --text: #e2e8f0;
     --text-muted: #94a3b8;
-    --primary: #0ea5e9;
-    --primary-dark: #0284c7;
-    --accent: #22d3ee;
-    --danger: #f87171;
-    --edit: #c084fc;
-    --image: #fbbf24;
     --border: #334155;
     --shadow: 0 6px 20px rgba(0,0,0,0.4);
-    --glow: 0 0 18px rgba(34, 211, 238, 0.5);
 }
 
 body {
     font-family: system-ui, sans-serif;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background: var(--bg);
     color: var(--text);
     margin: 0;
     padding: 1.5rem 1rem;
     min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+body.dark {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
 
 header {
@@ -50,14 +65,14 @@ header {
     border-radius: 50%;
     object-fit: contain;
     margin-bottom: 1rem;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.6), 0 0 20px rgba(14,165,233,0.5);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3), 0 0 20px rgba(14,165,233,0.3);
     border: 4px solid rgba(255,255,255,0.25);
     transition: all 0.4s ease;
 }
 
 .logo:hover {
     transform: scale(1.08) rotate(5deg);
-    box-shadow: 0 12px 35px rgba(0,0,0,0.7), 0 0 30px rgba(34,211,238,0.7);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.5), 0 0 30px rgba(34,211,238,0.7);
 }
 
 h1 {
@@ -65,7 +80,13 @@ h1 {
     font-size: 2.6rem;
     font-weight: 900;
     letter-spacing: -1px;
-    text-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    text-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+header p {
+    margin: 1rem 0 0;
+    font-size: 1.1rem;
+    opacity: 0.95;
 }
 
 .clock {
@@ -78,8 +99,8 @@ h1 {
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-/* Bouton dark mode (très beau) */
-#themeToggle {
+/* Bouton dark mode */
+.theme-btn {
     margin-top: 1.2rem;
     padding: 0.8rem 1.8rem;
     font-size: 1.05rem;
@@ -94,27 +115,61 @@ h1 {
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#themeToggle:hover {
+.theme-btn:hover {
     transform: translateY(-3px) scale(1.05);
     box-shadow: var(--glow), 0 14px 35px rgba(0,0,0,0.5);
     background: linear-gradient(135deg, rgba(255,255,255,0.32), rgba(255,255,255,0.18));
 }
 
-#themeToggle:active {
+.theme-btn:active {
     transform: scale(0.94);
 }
 
+/* Recherche */
+.search-container {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--border);
+    border-radius: 999px;
+    background: var(--card-bg);
+    color: var(--text);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2);
+}
+
 /* Tableau */
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
 table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 12px;
 }
 
+thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
 th, td {
     padding: 1.2rem 1.4rem;
-    background: var(--card-bg);
-    border: none;
+    text-align: left;
 }
 
 th {
@@ -124,29 +179,68 @@ th {
     text-transform: uppercase;
     font-size: 0.95rem;
     letter-spacing: 0.5px;
-    border-radius: 12px 12px 0 0;
+    box-shadow: var(--shadow);
 }
 
-tr {
+th:first-child {
+    border-radius: 12px 0 0 12px;
+}
+
+th:last-child {
+    border-radius: 0 12px 12px 0;
+}
+
+tbody tr {
     background: var(--card-bg);
     border-radius: 14px;
-    overflow: hidden;
     box-shadow: var(--shadow);
     transition: all 0.35s ease;
 }
 
-tr:hover {
+tbody tr:hover {
     transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+}
+
+body.dark tbody tr:hover {
     box-shadow: 0 12px 32px rgba(0,0,0,0.5);
 }
 
-/* Image corrigée : taille raisonnable, centrée, pas de débordement */
+tbody td:first-child {
+    border-radius: 14px 0 0 14px;
+}
+
+tbody td:last-child {
+    border-radius: 0 14px 14px 0;
+}
+
+/* 🔥 ALERTE STOCK BAS - Ligne rouge si quantité < 3 */
+tbody tr.low-stock {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%) !important;
+    border-left: 6px solid var(--danger);
+    animation: pulse-warning 2s ease-in-out infinite;
+}
+
+body.dark tbody tr.low-stock {
+    background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%) !important;
+}
+
+@keyframes pulse-warning {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(239, 68, 68, 0.7);
+    }
+}
+
+/* Image */
 .material-image {
     width: 80px;
     height: 80px;
     object-fit: cover;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     display: block;
     margin: 0 auto;
@@ -157,7 +251,7 @@ tr:hover {
     box-shadow: var(--glow);
 }
 
-/* Boutons refaits : ronds, colorés, glow, ripple, plus beaux */
+/* Boutons d'action */
 .action-btn {
     display: inline-flex;
     align-items: center;
@@ -173,21 +267,21 @@ tr:hover {
     border-radius: 9999px;
     cursor: pointer;
     transition: all 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     position: relative;
     overflow: hidden;
 }
 
 .action-btn:hover {
     transform: translateY(-4px) scale(1.1);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.55);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
 }
 
 .action-btn:active {
     transform: scale(0.92);
 }
 
-/* Ripple au clic */
+/* Effet ripple */
 .action-btn::after {
     content: '';
     position: absolute;
@@ -208,28 +302,54 @@ tr:hover {
     opacity: 0;
 }
 
-/* Couleurs spécifiques (plus vives et belles) */
+/* Couleurs boutons */
 .add-btn    { background: linear-gradient(135deg, #10b981, #059669); }
 .remove-btn { background: linear-gradient(135deg, #ef4444, #dc2626); }
 .edit-btn   { background: linear-gradient(135deg, #c084fc, #a855f7); }
 .image-btn  { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
 
+.add-btn:hover    { box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4); }
+.remove-btn:hover { box-shadow: 0 12px 30px rgba(239, 68, 68, 0.4); }
+.edit-btn:hover   { box-shadow: 0 12px 30px rgba(192, 132, 252, 0.4); }
+.image-btn:hover  { box-shadow: 0 12px 30px rgba(251, 191, 36, 0.4); }
+
 /* Inputs édition */
 .quantity-input, .name-input, .location-input {
     width: 100%;
     padding: 0.6rem 0.9rem;
-    border: 2px solid transparent;
+    border: 2px solid var(--border);
     border-radius: 10px;
     font-size: 1rem;
-    background: rgba(var(--card-bg), 0.6);
+    background: var(--card-bg);
     color: var(--text);
     transition: all 0.3s ease;
 }
 
 .quantity-input:focus, .name-input:focus, .location-input:focus {
+    outline: none;
     border-color: var(--accent);
-    background: var(--card-bg);
-    box-shadow: 0 0 0 4px rgba(var(--accent), 0.3);
+    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.2);
+}
+
+/* Bouton export CSV */
+main > button {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.35s ease;
+}
+
+main > button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 14px 35px rgba(14, 165, 233, 0.4);
 }
 
 /* Footer */
@@ -240,4 +360,17 @@ footer {
     color: var(--text-muted);
     font-size: 0.95rem;
     border-top: 1px solid var(--border);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    h1 { font-size: 1.8rem; }
+    .action-btn {
+        min-width: 40px;
+        height: 40px;
+        margin: 0 4px;
+        padding: 0 12px;
+        font-size: 0.9rem;
+    }
+    th, td { padding: 0.8rem 1rem; }
 }
