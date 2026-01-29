@@ -8,6 +8,9 @@
 </head>
 <body>
     <header>
+        <!-- Logo ajouté ici, centré au-dessus du titre -->
+        <img src="logo.png" alt="Logo ÉQUIPE LIGNE METZ" class="logo">
+        
         <div class="header-title">
             <h1>STOCK RTE ÉQUIPE LIGNE</h1>
             <div id="clock" class="clock">Chargement de l'heure...</div>
@@ -15,16 +18,15 @@
         <p>Gérez vos matériaux facilement – éditez noms, quantités et ajoutez des images.</p>
         <button id="themeToggle" class="theme-btn">Mode sombre 🌙</button>
     </header>
-
     <main>
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Rechercher un matériau..." onkeyup="filterMaterials()">
         </div>
-
         <table id="materialsTable">
             <thead>
                 <tr>
                     <th>Matériaux</th>
+                    <th>Emplacement</th> <!-- Nouvelle colonne -->
                     <th>Quantité</th>
                     <th>Image</th>
                     <th>Actions</th>
@@ -32,14 +34,11 @@
             </thead>
             <tbody id="materialsBody"></tbody>
         </table>
-
         <button onclick="exportToCSV()">Exporter en CSV</button>
     </main>
-
     <footer>
         <p>Site créé par Nassim Ketfi – Stagiaire EEL</p>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
