@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - STOCK RTE ÉQUIPE LIGNE</title>
+    <title>⚡ ACCÈS SÉCURISÉ - RTE ÉQUIPE LIGNE</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -12,76 +14,231 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Rajdhani', sans-serif;
+            background: #0a0e27;
+            overflow: hidden;
+            position: relative;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
         }
         
-        .login-container {
-            background: white;
-            padding: 50px 40px;
-            border-radius: 15px;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        /* Grille électrique animée en arrière-plan */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 420px;
-            animation: slideIn 0.5s ease;
+            height: 100%;
+            background: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
         }
         
-        @keyframes slideIn {
-            from {
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+        
+        /* Particules électriques */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00ffff;
+            border-radius: 50%;
+            animation: float 10s infinite;
+            box-shadow: 0 0 10px #00ffff;
+        }
+        
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) translateX(0);
                 opacity: 0;
-                transform: translateY(-30px);
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
             }
         }
         
-        .logo-container {
+        /* Éclair d'arrière-plan */
+        .lightning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            animation: lightning 5s infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        @keyframes lightning {
+            0%, 90%, 92%, 94%, 100% { opacity: 0; }
+            91%, 93% { opacity: 0.8; }
+        }
+        
+        /* Container principal */
+        .login-container {
+            position: relative;
+            z-index: 10;
+            background: rgba(10, 14, 39, 0.95);
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            padding: 50px 45px;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 
+                0 0 40px rgba(0, 255, 255, 0.3),
+                inset 0 0 60px rgba(0, 255, 255, 0.05);
+            animation: containerPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes containerPulse {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 40px rgba(0, 255, 255, 0.3),
+                    inset 0 0 60px rgba(0, 255, 255, 0.05);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 60px rgba(0, 255, 255, 0.5),
+                    inset 0 0 80px rgba(0, 255, 255, 0.1);
+            }
+        }
+        
+        /* En-tête avec logo électrique */
+        .header-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
         
-        .lock-icon {
-            font-size: 70px;
+        .power-icon {
+            font-size: 80px;
             margin-bottom: 15px;
-            animation: pulse 2s infinite;
+            animation: powerPulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px #00ffff);
         }
         
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        @keyframes powerPulse {
+            0%, 100% { 
+                transform: scale(1);
+                filter: drop-shadow(0 0 20px #00ffff);
+            }
+            50% { 
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 40px #00ffff);
+            }
         }
         
         h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 26px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: #00ffff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+            text-shadow: 
+                0 0 10px #00ffff,
+                0 0 20px #00ffff,
+                0 0 30px #00ffff;
+            animation: textGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes textGlow {
+            0%, 100% { 
+                text-shadow: 
+                    0 0 10px #00ffff,
+                    0 0 20px #00ffff,
+                    0 0 30px #00ffff;
+            }
+            50% { 
+                text-shadow: 
+                    0 0 20px #00ffff,
+                    0 0 30px #00ffff,
+                    0 0 40px #00ffff,
+                    0 0 50px #00ffff;
+            }
         }
         
         .subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 30px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
+            color: #00ffff;
+            font-weight: 500;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+        
+        .system-status {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #00ff88;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: statusBlink 1.5s infinite;
+            box-shadow: 0 0 10px #00ff88;
+        }
+        
+        @keyframes statusBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* Section formulaire */
+        .form-section {
+            margin-top: 30px;
         }
         
         .input-group {
             margin-bottom: 25px;
+            position: relative;
         }
         
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 600;
-            font-size: 14px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            color: #00ffff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
         }
         
         .password-wrapper {
@@ -91,87 +248,166 @@
         input[type="password"],
         input[type="text"] {
             width: 100%;
-            padding: 14px 45px 14px 14px;
-            border: 2px solid #ddd;
+            padding: 15px 50px 15px 15px;
+            background: rgba(0, 255, 255, 0.05);
+            border: 2px solid rgba(0, 255, 255, 0.3);
             border-radius: 8px;
+            color: #00ffff;
+            font-family: 'Orbitron', sans-serif;
             font-size: 16px;
             transition: all 0.3s;
-            font-family: inherit;
+            letter-spacing: 1px;
+        }
+        
+        input[type="password"]::placeholder,
+        input[type="text"]::placeholder {
+            color: rgba(0, 255, 255, 0.3);
+            font-family: 'Rajdhani', sans-serif;
         }
         
         input[type="password"]:focus,
         input[type="text"]:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #00ffff;
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.3),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
         }
         
         .toggle-password {
             position: absolute;
-            right: 14px;
+            right: 15px;
             top: 50%;
             transform: translateY(-50%);
+            font-size: 22px;
             cursor: pointer;
-            font-size: 20px;
+            filter: drop-shadow(0 0 5px #00ffff);
+            transition: all 0.3s;
             user-select: none;
-            transition: opacity 0.3s;
         }
         
         .toggle-password:hover {
-            opacity: 0.7;
+            filter: drop-shadow(0 0 10px #00ffff);
+            transform: translateY(-50%) scale(1.1);
         }
         
+        /* Bouton de connexion */
         button {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            padding: 16px;
+            background: linear-gradient(135deg, #00ffff 0%, #00aaff 100%);
             border: none;
             border-radius: 8px;
+            color: #0a0e27;
+            font-family: 'Orbitron', sans-serif;
             font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
+            font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transition: left 0.5s;
         }
         
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 40px rgba(0, 255, 255, 0.7);
+        }
+        
+        button:hover::before {
+            left: 100%;
         }
         
         button:active {
             transform: translateY(0);
         }
         
+        /* Message d'erreur */
         .error {
-            color: #e74c3c;
+            background: rgba(255, 0, 100, 0.2);
+            border: 2px solid #ff0066;
+            color: #ff0066;
+            padding: 12px;
+            border-radius: 8px;
             text-align: center;
-            margin-top: 15px;
+            margin-top: 20px;
             display: none;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 10px;
-            background: #ffe6e6;
-            border-radius: 5px;
-            animation: shake 0.5s;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: errorShake 0.5s;
+            box-shadow: 0 0 20px rgba(255, 0, 102, 0.3);
         }
         
-        @keyframes shake {
+        @keyframes errorShake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-10px); }
             75% { transform: translateX(10px); }
         }
         
-        .footer-note {
+        /* Pied de page */
+        .footer-section {
+            margin-top: 30px;
             text-align: center;
-            margin-top: 20px;
-            color: #999;
-            font-size: 12px;
         }
         
-        @media (max-width: 480px) {
+        .security-notice {
+            font-size: 11px;
+            color: rgba(0, 255, 255, 0.5);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .voltage-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin-top: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            color: #ffaa00;
+        }
+        
+        .voltage-bar {
+            width: 100px;
+            height: 4px;
+            background: rgba(255, 170, 0, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .voltage-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffaa00, #ff0066);
+            animation: voltagePulse 2s ease-in-out infinite;
+            box-shadow: 0 0 10px #ffaa00;
+        }
+        
+        @keyframes voltagePulse {
+            0%, 100% { width: 70%; }
+            50% { width: 100%; }
+        }
+        
+        /* Version responsive */
+        @media (max-width: 520px) {
             .login-container {
                 padding: 40px 30px;
             }
@@ -180,42 +416,125 @@
                 font-size: 22px;
             }
             
-            .lock-icon {
+            .power-icon {
                 font-size: 60px;
             }
+            
+            .system-status {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+        
+        /* Effet de scan */
+        .scan-line {
+            position: fixed;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            animation: scan 4s linear infinite;
+            z-index: 5;
+            pointer-events: none;
+            box-shadow: 0 0 10px #00ffff;
+        }
+        
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
         }
     </style>
 </head>
 <body>
+    <!-- Effets d'arrière-plan -->
+    <div class="grid-background"></div>
+    <div class="lightning"></div>
+    <div class="scan-line"></div>
+    
+    <!-- Particules électriques -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Container de connexion -->
     <div class="login-container">
-        <div class="logo-container">
-            <div class="lock-icon">🔒</div>
-            <h1>Accès Sécurisé</h1>
-            <p class="subtitle">STOCK RTE ÉQUIPE LIGNE - Gestion EEL</p>
+        <div class="header-section">
+            <div class="power-icon">🔌</div>
+            <h1>Accès Réseau</h1>
+            <p class="subtitle">RTE ÉQUIPE LIGNE</p>
+            
+            <div class="system-status">
+                <div class="status-item">
+                    <span class="status-dot"></span>
+                    <span>RÉSEAU ACTIF</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-dot"></span>
+                    <span>SYSTÈME EN LIGNE</span>
+                </div>
+            </div>
         </div>
         
-        <form id="loginForm">
+        <form id="loginForm" class="form-section">
             <div class="input-group">
-                <label for="password">Mot de passe :</label>
+                <label for="password">Code d'accès sécurisé</label>
                 <div class="password-wrapper">
-                    <input type="password" id="password" required autofocus autocomplete="current-password">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Entrez votre code..." 
+                        required 
+                        autofocus 
+                        autocomplete="current-password">
                     <span class="toggle-password" onclick="togglePassword()">👁️</span>
                 </div>
             </div>
             
-            <button type="submit">Se connecter</button>
+            <button type="submit">
+                ACTIVER L'ACCÈS
+            </button>
             
-            <p class="error" id="errorMsg">❌ Mot de passe incorrect !</p>
+            <p class="error" id="errorMsg">
+                ⚠️ CODE INVALIDE - ACCÈS REFUSÉ
+            </p>
         </form>
         
-        <p class="footer-note">Accès réservé au personnel autorisé</p>
+        <div class="footer-section">
+            <p class="security-notice">
+                🔒 Zone sécurisée - Personnel autorisé uniquement
+            </p>
+            <div class="voltage-indicator">
+                <span>TENSION:</span>
+                <div class="voltage-bar">
+                    <div class="voltage-fill"></div>
+                </div>
+                <span>400kV</span>
+            </div>
+            <p style="margin-top: 20px; font-size: 11px; color: rgba(0, 255, 255, 0.4); font-family: 'Rajdhani', sans-serif; letter-spacing: 1px;">
+                Créé par Nassim Ketfi
+            </p>
+        </div>
     </div>
 
     <script>
-        // Mot de passe configuré
+        // ⚠️ CONFIGUREZ VOTRE MOT DE PASSE ICI
         const CORRECT_PASSWORD = "2026";
         
-        // Fonction pour basculer l'affichage du mot de passe
+        // Génération des particules électriques
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+        
+        // Basculer visibilité du mot de passe
         function togglePassword() {
             const passwordInput = document.getElementById('password');
             const toggleIcon = document.querySelector('.toggle-password');
@@ -235,6 +554,7 @@
             
             const inputPassword = document.getElementById('password').value;
             const errorMsg = document.getElementById('errorMsg');
+            const button = document.querySelector('button');
             
             if (inputPassword === CORRECT_PASSWORD) {
                 // Connexion réussie
@@ -242,29 +562,37 @@
                 sessionStorage.setItem('loginTime', new Date().getTime());
                 
                 // Effet visuel de succès
-                const button = document.querySelector('button');
-                button.textContent = '✓ Connexion réussie !';
-                button.style.background = 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)';
+                button.textContent = '✓ ACCÈS AUTORISÉ';
+                button.style.background = 'linear-gradient(135deg, #00ff88 0%, #00ffff 100%)';
                 
-                // Redirection après un court délai
+                // Effet d'éclair de succès
+                document.querySelector('.lightning').style.animation = 'lightning 0.2s 3';
+                
+                // Redirection
                 setTimeout(() => {
                     window.location.href = 'index.html';
-                }, 800);
+                }, 1000);
                 
             } else {
-                // Mot de passe incorrect
+                // Erreur - mot de passe incorrect
                 errorMsg.style.display = 'block';
                 document.getElementById('password').value = '';
                 document.getElementById('password').focus();
                 
-                // Cache le message d'erreur après 3 secondes
+                // Effet de tremblement sur le container
+                document.querySelector('.login-container').style.animation = 'errorShake 0.5s';
+                setTimeout(() => {
+                    document.querySelector('.login-container').style.animation = 'containerPulse 3s ease-in-out infinite';
+                }, 500);
+                
+                // Cache le message après 3 secondes
                 setTimeout(() => {
                     errorMsg.style.display = 'none';
                 }, 3000);
             }
         });
         
-        // Détecte la touche Entrée
+        // Détection de la touche Entrée
         document.getElementById('password').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 document.getElementById('loginForm').dispatchEvent(new Event('submit'));
