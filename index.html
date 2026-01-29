@@ -8,9 +8,6 @@
 </head>
 <body>
     <header>
-        <!-- Logo ajouté ici, centré au-dessus du titre -->
-        <img src="logo.png" alt="Logo ÉQUIPE LIGNE METZ" class="logo">
-        
         <div class="header-title">
             <img src="logo.png" alt="Logo ÉQUIPE LIGNE METZ" class="logo">
             <h1>STOCK RTE ÉQUIPE LIGNE</h1>
@@ -27,7 +24,6 @@
             <thead>
                 <tr>
                     <th>Matériaux</th>
-                    <th>Emplacement</th> <!-- Nouvelle colonne -->
                     <th>Emplacement</th>
                     <th>Quantité</th>
                     <th>Image</th>
@@ -41,7 +37,30 @@
     <footer>
         <p>Site créé par Nassim Ketfi – Stagiaire EEL</p>
     </footer>
-    <script src="script.js"></script>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+      import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAJ-Y9I9M-Us5-aOlgB_EQcIpOYWvgfo9c",
+        authDomain: "gestion-stock-eel.firebaseapp.com",
+        databaseURL: "https://gestion-stock-eel-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "gestion-stock-eel",
+        storageBucket: "gestion-stock-eel.firebasestorage.app",
+        messagingSenderId: "701983887122",
+        appId: "1:701983887122:web:16cdaf148f940a4bf1adcb",
+        measurementId: "G-V7X37Z2Y6V"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      window.db = db;
+      console.log("Firebase chargé !");
+    </script>
+
+    <!-- Ton script principal en mode module -->
+    <script type="module" src="script.js"></script>
 </body>
 </html>
-//COMMITE
