@@ -1,3 +1,7 @@
+// script.js (type="module")
+
+// Firebase est accessible via window.db (de index.html)
+
 // Référence Firebase
 const materialsRef = ref(db, 'materials');
 
@@ -109,13 +113,13 @@ onValue(materialsRef, (snapshot) => {
       { name: "RL15-150", location: "HANGAR", quantity: 40, image: '' },
       { name: "MN 15", location: "HANGAR", quantity: 40, image: '' }
     ];
-    set(materialsRef, materials); // Sauvegarde une seule fois
+    set(materialsRef, materials);
   }
 
   renderTable();
 });
 
-// Fonctions d'édition (sauvegarde dans Firebase)
+// Fonctions d'édition
 function updateQuantity(index, change) {
   materials[index].quantity = Math.max(0, materials[index].quantity + change);
   set(materialsRef, materials);
@@ -240,7 +244,7 @@ function renderTable() {
   });
 }
 
-// Filtre et export (inchangés)
+// Filtre et export
 function filterMaterials() {
   const input = document.getElementById('searchInput').value.toLowerCase();
   const rows = document.querySelectorAll('#materialsBody tr');
