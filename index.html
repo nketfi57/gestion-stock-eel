@@ -7,18 +7,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- 🔒 PROTECTION DE SÉCURITÉ - NE PAS SUPPRIMER -->
     <script>
-        // Vérifie si l'utilisateur est authentifié
         if (sessionStorage.getItem('authenticated') !== 'true') {
-            // Pas connecté → redirection vers la page de connexion
             window.location.href = 'login.html';
         }
         
-        // Déconnexion automatique après 8 heures d'inactivité
         const loginTime = sessionStorage.getItem('loginTime');
         const currentTime = new Date().getTime();
-        const eightHours = 8 * 60 * 60 * 1000; // 8 heures en millisecondes
+        const eightHours = 8 * 60 * 60 * 1000;
         
         if (loginTime && (currentTime - loginTime) > eightHours) {
             sessionStorage.removeItem('authenticated');
@@ -27,7 +23,7 @@
             window.location.href = 'login.html';
         }
     </script>
-    
+
     <header>
         <div class="header-title">
             <img src="logo.png" alt="Logo ÉQUIPE LIGNE METZ" class="logo">
@@ -40,6 +36,7 @@
             <button id="logoutBtn" class="theme-btn" style="background-color: #e74c3c;" onclick="logout()">Déconnexion 🚪</button>
         </div>
     </header>
+
     <main>
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Rechercher un matériau..." onkeyup="filterMaterials()">
@@ -58,11 +55,11 @@
         </table>
         <button onclick="exportToCSV()">Exporter en CSV</button>
     </main>
+
     <footer>
         <p>Site créé par Nassim Ketfi – Stagiaire EEL</p>
     </footer>
     
-    <!-- 🔒 FONCTION DE DÉCONNEXION -->
     <script>
         function logout() {
             if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
@@ -73,7 +70,6 @@
         }
     </script>
     
-    <!-- Firebase SDK -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
       import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js";
