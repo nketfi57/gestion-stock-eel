@@ -1,5 +1,3 @@
-// script.js - Attend que Firebase soit prêt depuis index.html
-
 function initApp() {
   if (!window.firebaseDB) {
     setTimeout(initApp, 100);
@@ -14,11 +12,9 @@ function initApp() {
   const materialsRef = ref(db, 'materials');
   let materials = [];
 
-  // Charger et synchroniser en temps réel
   onValue(materialsRef, (snapshot) => {
     materials = snapshot.val() || [];
     
-    // Si la base est vide → on initialise
     if (materials.length === 0) {
       console.log("Base vide → création des matériaux");
       materials = [
@@ -174,7 +170,7 @@ function initApp() {
     renderTable();
   });
 
-  // Fonctions d'édition
+
   window.updateQuantity = function(index, change) {
     materials[index].quantity = Math.max(0, materials[index].quantity + change);
     set(materialsRef, materials);
@@ -233,14 +229,12 @@ function initApp() {
     input.click();
   };
 
-  // 🔥 FONCTION RENDERTABLE MODIFIÉE - Ajoute la classe low-stock
   function renderTable() {
     const tbody = document.getElementById('materialsBody');
     tbody.innerHTML = '';
     materials.forEach((mat, index) => {
       const row = document.createElement('tr');
       
-      // 🔥 ALERTE : Ligne rouge si quantité < 3
       if (mat.quantity < 3) {
         row.classList.add('low-stock');
       }
@@ -272,7 +266,6 @@ function initApp() {
     });
   }
 
-  // Filtre
   window.filterMaterials = function() {
     const input = document.getElementById('searchInput').value.toLowerCase();
     const rows = document.querySelectorAll('#materialsBody tr');
@@ -282,7 +275,6 @@ function initApp() {
     });
   };
 
-  // Export CSV
   window.exportToCSV = function() {
     let csv = 'Matériaux,Emplacement,Quantité,Image présente\n';
     materials.forEach(mat => {
@@ -298,7 +290,6 @@ function initApp() {
   };
 }
 
-// Horloge
 function updateClock() {
   const now = new Date();
   const parisTime = new Intl.DateTimeFormat('fr-FR', {
@@ -313,7 +304,6 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// Dark mode
 const themeToggle = document.getElementById('themeToggle');
 if (localStorage.getItem('theme') === 'dark') {
   document.body.classList.add('dark');
@@ -330,5 +320,4 @@ themeToggle.addEventListener('click', () => {
   }
 });
 
-// Démarre l'app quand Firebase est prêt
 initApp();
